@@ -101,37 +101,17 @@
                             <li><a href="{{ url_for('about')}}">About Us</a></li>
                             <li>
                                 <!-- First Tier Drop Down -->
-                                <label for="drop-2" class="toggle">Abayas Collection <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                <label for="drop-2" class="toggle">Shop <span class="fa fa-angle-down" aria-hidden="true"></span>
                                 </label>
-                                <a href="#">Abayas Collection <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <a href="#">Shop <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <input type="checkbox" id="drop-2" />
                                 <ul>
-                                    <li><a href="dailywear.html" class="drop-text">Daily Wear </a></li>
-                                    <li><a href="emb.html" class="drop-text">Embroidery</a></li>
-                                    <li><a href="shrugs.html" class="drop-text">Party Wear</a></li>
-                                    <li><a href="kimanos.html" class="drop-text">Modest Wear</a></li>
-
-
+                                    <li><a href="{{ url_for('filter_collection', type=is_dailywear) }}" class="drop-text">Daily Wear </a></li>
+                                    <li><a href="{{ url_for('filter_collection', type=is_embroidery) }}" class="drop-text">Embroidery</a></li>
+                                    <li><a href="{{ url_for('filter_collection', type=is_partywear) }}" class="drop-text">Party Wear</a></li>
+                                    <li><a href="{{ url_for('filter_collection', type=is_modestwear) }}" class="drop-text">Modest Wear</a></li>
                                 </ul>
                             </li>
-                            <li> 
-
-                            <label for="drop-2" class="toggle">Hijabs Collection <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                </label>
-                                <a href="#">Hijabs Collection <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                                <input type="checkbox" id="drop-2" />
-                                <ul>
-                                    <li><a href="summer.html" class="drop-text">Summer </a></li>
-                                    <li><a href="emb.html" class="drop-text">Embroidery</a></li>
-                                    <li><a href="shimmer.html" class="drop-text">Shimmer</a></li>
-                                    <li><a href="chiffon.html" class="drop-text">chiffon</a></li>
-
-
-                                </ul>
-                            </li>
-
-                            
-
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </nav>

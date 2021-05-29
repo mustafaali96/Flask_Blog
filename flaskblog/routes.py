@@ -207,11 +207,11 @@ def guest_collection_detail(collection_id):
         collection = Collection.query.filter(Collection.id==collection_id)[0]
     return render_template('collectioninfo.html', title='Details', collection=collection)
 
-@app.route('/<collection_id>/', methods=['GET','POST'])
-def guest_collection_detail(collection_id):
+@app.route('/filter/<type>/', methods=['GET','POST'])
+def filter_collection(type):
     if request.method == 'GET':
         # print(current_user.id)
-        collection = Collection.query.filter(Collection.id==collection_id)[0]
+        collection = Collection.query.filter(Collection.type).all()
     return render_template('collectioninfo.html', title='Details', collection=collection)
 
 @app.route('/about/')
