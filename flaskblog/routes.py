@@ -41,8 +41,7 @@ def home():
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-#pushing
+    
 #login
 @app.route("/login/", methods=['GET','POST'])
 def login():
