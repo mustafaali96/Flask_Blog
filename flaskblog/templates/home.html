@@ -12,6 +12,7 @@
 			          </div>
 			          <h3 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;"><a style="color:black"; href="{{ url_for('guest_collection_detail', collection_id=collection.id) }}">{{ collection.title }}</a></h3>
 			          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.price }}</p>
+			          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Seller: </b> {{ collection.user.firstname }}</p>
 			          
 			       </div>
 			    </div>

@@ -41,7 +41,7 @@ def home():
 def logout():
     logout_user()
     return redirect(url_for('home'))
-    
+
 #login
 @app.route("/login/", methods=['GET','POST'])
 def login():
@@ -195,6 +195,13 @@ def tailor_collection():
 
 @app.route('/dashboard/collections/<collection_id>/', methods=['GET','POST'])
 def collection_detail(collection_id):
+    if request.method == 'GET':
+        # print(current_user.id)
+        collection = Collection.query.filter(Collection.id==collection_id)[0]
+    return render_template('collectioninfo.html', title='Details', collection=collection)
+
+@app.route('/<collection_id>/', methods=['GET','POST'])
+def guest_collection_detail(collection_id):
     if request.method == 'GET':
         # print(current_user.id)
         collection = Collection.query.filter(Collection.id==collection_id)[0]

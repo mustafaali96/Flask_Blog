@@ -18,18 +18,14 @@
 
 {% block content %}
 	<!-- Card stats -->
-          <div class="row">
+        <div class="row">
           	<div class="container"> 
-					{% with messages = get_flashed_messages(with_categories=true) %}
-					   {% if messages %}
-					       {% for category, message in messages%}
-					           <div class="alert alert-{{ category }}">
-						          {{ message }}
-					           </div>
-					       {% endfor %}
-					   {% endif %}
-				    {% endwith %}
-				  </div>
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+              			<div class="alert alert-{{ messages.keys }}"></div>
+					{% endif %}
+				{% endwith %}
+			</div>
 
 				
           	<div class="col-lg-3 col-6">
