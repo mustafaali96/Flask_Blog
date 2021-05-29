@@ -105,14 +105,14 @@
                                 </label>
                                 <a href="#">Shop <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                                 <input type="checkbox" id="drop-2" />
-                                <ul>
-                                    <li><a href="{{ url_for('filter_collection', type=is_dailywear) }}" class="drop-text">Daily Wear </a></li>
-                                    <li><a href="{{ url_for('filter_collection', type=is_embroidery) }}" class="drop-text">Embroidery</a></li>
-                                    <li><a href="{{ url_for('filter_collection', type=is_partywear) }}" class="drop-text">Party Wear</a></li>
-                                    <li><a href="{{ url_for('filter_collection', type=is_modestwear) }}" class="drop-text">Modest Wear</a></li>
+                                <ul style="z-index:999";>
+                                    <li><a href="{{ url_for('filter_collection', filter_type='is_dailywear') }}" class="drop-text">Daily Wear </a></li>
+                                    <li><a href="{{ url_for('filter_collection', filter_type='is_embroidery') }}" class="drop-text">Embroidery</a></li>
+                                    <li><a href="{{ url_for('filter_collection', filter_type='is_partywear') }}" class="drop-text">Party Wear</a></li>
+                                    <li><a href="{{ url_for('filter_collection', filter_type='is_modestwear') }}" class="drop-text">Modest Wear</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="{{ url_for('contact_us')}}">Contact</a></li>
                         </ul>
                     </nav>
                     <!-- //nav -->

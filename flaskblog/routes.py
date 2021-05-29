@@ -207,16 +207,22 @@ def guest_collection_detail(collection_id):
         collection = Collection.query.filter(Collection.id==collection_id)[0]
     return render_template('collectioninfo.html', title='Details', collection=collection)
 
-@app.route('/filter/<type>/', methods=['GET','POST'])
-def filter_collection(type):
+@app.route('/filter/<filter_type>/', methods=['GET','POST'])
+def filter_collection(filter_type):
     if request.method == 'GET':
-        # print(current_user.id)
-        collection = Collection.query.filter(Collection.type).all()
-    return render_template('collectioninfo.html', title='Details', collection=collection)
+        print(filter_type)
+        filters = { filter_type : True }
+        filter_collection = Collection.query.filter_by(**filters)
+    return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
 
 @app.route('/about/')
 def about():
     return render_template('about.html', title='About Us')
+
+@app.route('/contact/')
+def contact_us():
+    return render_template('contactus.html', title='Contact Us')
+
 #customerdashboard
 # @app.route("/c/dashboard")
 # def customerdashboard():
