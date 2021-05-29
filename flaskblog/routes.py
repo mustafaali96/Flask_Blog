@@ -42,6 +42,7 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 #login
 @app.route("/login/", methods=['GET','POST'])
 def login():
