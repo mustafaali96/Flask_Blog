@@ -1,0 +1,99 @@
+{% extends "layout.html"%}
+
+
+{% block title %} Customers Dashboard {% endblock title %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style type="text/css">
+	#search {
+		display: none!important;
+	}
+	.nav-top-wthree {
+    margin: 1em 0;
+    display: none;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+	<!-- Card stats -->
+          <div class="row">
+          	<div class="container"> 
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					   {% if messages %}
+					       {% for category, message in messages%}
+					           <div class="alert alert-{{ category }}">
+						          {{ message }}
+					           </div>
+					       {% endfor %}
+					   {% endif %}
+				    {% endwith %}
+				  </div>
+
+				
+          	<div class="col-lg-3 col-6">
+            <!-- small box -->
+	            <div class="small-box bg-warning">
+	              <div class="inner">
+	                <h3></h3>
+
+	                <p>Customer Profile</p>
+	              </div>
+	              <div class="icon">
+	                <i class="ion ion-person"></i>
+	              </div>
+	              <a href="{{url_for('update_profile')}}" class="small-box-footer">Customer Update Profile <i class="fas fa-arrow-circle-right"></i></a>
+	            </div>
+	        </div>
+            
+
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><sup style="font-size: 20px"></sup></h3>
+
+                <p style="color: white!important;">Orders</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tshirt"></i>
+              </div>
+              <a href="#" class="small-box-footer">View Orders <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+	            <div class="small-box bg-info">
+	              <div class="inner">
+	                <h3></h3>
+
+	                <p style="color: white!important;">New Orders</p>
+	              </div>
+	              <div class="icon">
+	                <i class="ion ion-bag"></i>
+	              </div>
+	              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+	            </div>
+          	</div>
+            
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats-">              
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+
+            
+	</div>
+	
+{% endblock content %}
+
+
+

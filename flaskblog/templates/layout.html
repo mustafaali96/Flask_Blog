@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/dist/css/adminlte.min.css') }}">
+
+    <!-- Font Awesome Icons -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- IonIcons -->
+
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+  
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/select2/css/select2.css') }}">
+
+    <!-- daterange picker -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/daterangepicker/daterangepicker.css') }}') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/datepicker/datepicker3.cs') }}') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/tagify/dist/tagify.css') }}') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/icheck-bootstrap/icheck-bootstrap.css') }}') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/fontawesome-free/css/all.min.css') }}') }}">
+    <!-- Ionicons -->
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+	{% if title  %}
+		<title> EZEL BY OMAMA | Modestly Chic - {{ title }} </title>
+	{% else %}
+		<title> EZEL BY OMAMA | Modestly Chic </title>
+	{% endif  %}
+
+	<script>
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //Meta tag Keywords -->
+    <!-- Custom-Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <!-- Bootstrap-Core-CSS -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Style-CSS -->
+    <!-- font-awesome-icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!-- //font-awesome-icons -->
+    <!-- /Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+
+    {% block style %}
+    {% endblock style%}
+</head>
+<body>
+	<header class="col-md-12" id="home">
+            <div class="col-md-12">
+                <!-- nav -->
+                <div class="top-w3pvt d-flex">
+                    <div id="logo">
+                        <h1> <a href="index.html"><span class="log-w3pvt"></span>EZEL BY OMAMA | Modestly Chic</a> <label class="sub-des">Online Abaya & Hijab Store</label></h1>
+                    </div>
+
+                    <div class="forms ml-auto">
+                        {% if current_user.is_authenticated %}
+                         <a href="{{ url_for('logout')}}" class="btn"><span class="fa fa-user-circle-o"></span> Logout</a>
+                        {% else %}
+                        <a  href="{{ url_for('login')}}" class="signin btn"><span class="fa fa-user-circle-o"></span> Log In</a>
+                        <a id="signup" href="{{ url_for('register')}}" class="signin btn"><span class="fa fa-user-circle-o"></span> Sign Up</a>
+                        {% endif %}
+                        
+<!-- 
+                        <a href="" class="btn"><span class="fa fa-pencil-square-o"></span> Sign Up</a> -->
+                    </div>
+                </div>
+                <div id ="navbar" class="nav-top-wthree">
+                    <nav>
+                        <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
+                        <input type="checkbox" id="drop" />
+                        <ul class="menu">
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li>
+                                <!-- First Tier Drop Down -->
+                                <label for="drop-2" class="toggle">Abayas Collection <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                </label>
+                                <a href="#">Abayas Collection <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-2" />
+                                <ul>
+                                    <li><a href="dailywear.html" class="drop-text">Daily Wear </a></li>
+                                    <li><a href="emb.html" class="drop-text">Embroidery</a></li>
+                                    <li><a href="shrugs.html" class="drop-text">Party Wear</a></li>
+                                    <li><a href="kimanos.html" class="drop-text">Modest Wear</a></li>
+
+
+                                </ul>
+                            </li>
+                            <li> 
+
+                            <label for="drop-2" class="toggle">Hijabs Collection <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                </label>
+                                <a href="#">Hijabs Collection <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-2" />
+                                <ul>
+                                    <li><a href="summer.html" class="drop-text">Summer </a></li>
+                                    <li><a href="emb.html" class="drop-text">Embroidery</a></li>
+                                    <li><a href="shimmer.html" class="drop-text">Shimmer</a></li>
+                                    <li><a href="chiffon.html" class="drop-text">chiffon</a></li>
+
+
+                                </ul>
+                            </li>
+
+                            
+
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <!-- //nav -->
+                    <div id = "search" class="search-form ml-auto">
+                        <div class="form-w3layouts-grid">
+                            <form action="#" method="post" class="newsletter">
+                                <input class="search" type="search" placeholder="Search here..." required="">
+                                <button class="form-control btn" value=""><span class="fa fa-search"></span></button>
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </header>
+
+				<div class="container"> 
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					   {% if messages %}
+					       {% for category, message in messages%}
+					           <div class="alert alert-{{ category }}">
+						          {{ message }}
+					           </div>
+					       {% endfor %}
+					   {% endif %}
+				    {% endwith %}
+				    {% block content %} {% endblock%}
+				</div>
+				
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+   <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  -->
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> 
+ -->
+ <script src="{{ url_for('static', filename='/adminlte-v3/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/adminlte-v3/dist/js/adminlte.js') }}"></script>
+
+
+
+    {% block javascripts %}
+
+    {% endblock %}
+    
+</body>	
+</html>

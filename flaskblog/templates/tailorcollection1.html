@@ -1,0 +1,60 @@
+{% extends "layout.html"%}
+{% block style %}
+<link rel="stylesheet"
+href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+   #hideValuesOnSelect {
+      display: none;
+   }
+</style>
+{% endblock style %}
+{% block title %} Dashboard {% endblock title %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style type="text/css">
+	#search {
+		display: none!important;
+	}
+	.nav-top-wthree {
+    margin: 1em 0;
+    display: none;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+{% for collection in collections %}
+ <div class="col-md-4">
+    <div class="card o-hidden">
+       <div class="b-r-4 card-body">
+          <div class="media static-top-widget">
+             <table class = 'w-50 table table-light'style="border-radius:10px;">
+                <tbody style="display:flex">
+                   <tr style="display:grid">
+                    
+                   </tr>
+                   <tr style="display:grid" >
+                   
+                      <td><h4 class="justify-content-center" style="display: flex;">{{ collection.id }}</h4></td>
+                      <td><h4 class="col-sm-3 col-form-label" style="display: flex;">created_at {{ collection.created_at }}</h4></td>
+                      <td><h4 class="col-sm-3 col-form-label" style="display: flex;">image name {{ collection.product_image }}</h4></td>
+                      <td><image src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}"width="250" height="250"></image></td>
+
+                      		
+                   
+                   </tr>
+                </tbody>
+             </table>
+          </div>
+         
+       </div>
+    </div>
+ </div>
+ {% endfor %}
+
+ {% endblock content %}

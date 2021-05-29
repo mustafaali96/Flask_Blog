@@ -1,0 +1,118 @@
+{% extends "layout.html"%}
+{% block style %}
+<link rel="stylesheet"
+href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+   #hideValuesOnSelect {
+      display: none;
+   }
+</style>
+{% endblock style %}
+{% block title %} Dashboard {% endblock title %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style type="text/css">
+	#search {
+		display: none!important;
+	}
+	.nav-top-wthree {
+    margin: 1em 0;
+    display: none;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+	<div class="content-section"> 
+		<div class="row col-md-12">
+			<div class="col-md-2">
+			<img width="200px" height="200px" class="rounded-circle account-img" src="http://127.0.0.1:5000{{ imagefile }}">
+				<div class="account-heading">{{ current_user.firstname + current_user.lastname }}
+					<h2>
+					<p class="text-secondary"> {{ current_user.username }} </p>
+					</h2>	
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class=" row col-md-8 offset-md-2" >
+					<form method="POST" action="" enctype="multipart/form-data">
+					{{ form.hidden_tag() }}
+					<fieldset class="row form-group">
+						<legend class="border-bottom mb-4"> Account Information </legend>
+
+						{% for field in form %}
+							{% if field.id == 'csrf_token' or field.id == 'submit' %}
+
+							{% else %}
+						
+								<div class="col-md-6">
+									<div class="form-group">
+										{{ field.label }}
+										{% if field.errors %}
+											{{ field }}
+											<div class="invalid-feedback">
+												{% for error in field.errors %}
+													<span>{{ error }}</span>
+													{% endfor %}
+											</div>
+										{% else %}
+											{{ field }}
+										{% endif %}
+								 	</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+
+						
+						
+
+						 <!-- <div class="form-check">
+						 	<h5 class="form-control-label">Type</h5>
+						 	<br>
+						 	<select onchange="displayDivDemo('hideValuesOnSelect', this)" class="form-control-lg"> 
+						 		
+						 		
+						 		<option value="0">Customer</option>
+						 		<option value="1">Tailor</option>
+						 	</select>
+							<br><br>
+						 </div> -->
+						</fieldset>
+						<div class="form-group">
+							{{ form.submit(class="btn btn-outline-info") }}
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% block javascripts %}
+	<script type="text/javascript">
+		window.onload = function() {
+		  document.getElementById('hideValuesOnSelect').style.display = 'block';
+		   document.getElementById('shop').style.display = 'block';
+		};
+		$("#tailor_type").change(function(){
+		     var type = this.value;
+		   if(type=="1"){
+		     $("#hideValuesOnSelect").show();// hide multiple sections
+		     $("#shop").show();
+		   }
+		   else
+		   { 
+		   	$("#hideValuesOnSelect").hide();
+		   	$("#shop").hide();
+		   }
+		  });
+		
+		
+	</script>
+	{% endblock javascripts %}
+{% endblock content %}
+
+
+

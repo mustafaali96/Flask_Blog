@@ -1,0 +1,229 @@
+{% extends "layout.html"%}
+{% block style %}
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+   #hideValuesOnSelect {
+      display: none;
+   }
+</style>
+{% endblock style %}
+{% block content %}
+	<div class=" row col-md-8 offset-md-2" >
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+			<fieldset class="row form-group">
+				<legend class="border-bottom mb-4"> Sign Up </legend>
+				<div class="col-md-6">
+					<div class="form-group text-left clearfix">
+				 	{{ form.user_type.label(class="form-control-label") }}
+		            {{ form.user_type(class_="form-control input-type") }}
+		            {% if form.user_type.errors %}
+		                <ul class="errors">
+		                    {% for error in form.user_type.errors %}
+		                        <li class="text-color-red">{{ error }}</li>
+		                    {% endfor %}
+		                </ul>
+		            {% endif %}
+
+           		 </div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+					{{ form.firstname.label(class="form-control-label") }}
+
+
+					{% if form.firstname.errors %}
+						{{ form.firstname(class="form-control is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.firstname.errors %}
+								<span>{{ error }}</span>
+								{% endfor %}
+						</div>
+					{% else %}
+						{{ form.firstname(class="form-control") }}
+					{% endif %}
+
+				 </div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+					{{ form.lastname.label(class="form-control-label") }}
+					{% if form.lastname.errors %}
+						{{ form.lastname(class="form-control is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.lastname.errors %}
+								<span>{{ error }}</span>
+								{% endfor %}
+						</div>
+					{% else %}
+						{{ form.lastname(class="form-control form-control-lg") }}
+					{% endif %}
+				 </div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+					{{ form.username.label(class="form-control-label") }}
+					{% if form.username.errors %}
+						{{ form.username(class="form-control is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.username.errors %}
+								<span>{{ error }}</span>
+								{% endfor %}
+						</div>
+					{% else %}
+						{{ form.username(class="form-control form-control-lg") }}
+					{% endif %}
+				 </div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+					{{ form.number.label(class="form-control-label") }}
+					{% if form.number.errors %}
+						{{ form.number(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.number.errors %}
+								<span>{{ error }}</span>
+								{% endfor %}
+						</div>
+					{% else %}
+						{{ form.number(class="form-control") }}
+					{% endif %}
+				 </div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+					{{ form.address.label(class="form-control-label") }}
+					{% if form.address.errors %}
+						{{ form.address(class="form-control is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.address.errors %}
+								<span>{{ error }}</span>
+								{% endfor %}
+						</div>
+					{% else %}
+						{{ form.address(class="form-control") }}
+					{% endif %}
+				 </div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+					{{ form.password.label(class="form-control-label") }}
+					{% if form.password.errors %}
+						{{ form.password(class="form-control is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.password.errors %}
+								<span>{{ error }}</span>
+								{% endfor %}
+						</div>
+					{% else %}
+						{{ form.password(class="form-control") }}
+					{% endif %}
+				 </div>
+				</div>
+
+				<div id="shop" class="col-md-6">
+					<div class="form-group">
+						{{ form.shop_name.label(class="form-control-label") }}
+						{% if form.shop_name.errors %}
+							{{ form.shop_name(class="form-control is-invalid") }}
+							<div class="invalid-feedback">
+								{% for error in form.shop_name.errors %}
+									<span>{{ error }}</span>
+									{% endfor %}
+							</div>
+						{% else %}
+							{{ form.shop_name(class="form-control") }}
+						{% endif %}
+				 	</div>
+				</div>
+				
+				<div class="col-md-6" id= "hideValuesOnSelect">
+					<h5 class="form-group" style="font-size: 16px;"><b>Skills</b></h5>
+					<div class="form-check">
+	 				 	{{ form.embroidery(class="form-check-input") }}
+	 				 	{{ form.embroidery.label(class="form-check-label") }}
+				 	</div>
+
+	 				 <div class="form-check">
+	 				 	{{ form.partywear(class="form-check-input") }}
+	 				 	{{ form.partywear.label(class="form-check-label") }}
+	 				 </div>
+	 				  <div class="form-check">
+	 				 	{{ form.dailywear(class="form-check-input") }}
+	 				 	{{ form.dailywear.label(class="form-check-label") }}
+					 </div>
+
+	 				 <div class="form-check">
+	 				 	{{ form.modestwear(class="form-check-input") }}
+	 				 	{{ form.modestwear.label(class="form-check-label") }}
+					 </div>
+				</div>
+
+
+				 <!-- <div class="form-check">
+				 	<h5 class="form-control-label">Type</h5>
+				 	<br>
+				 	<select onchange="displayDivDemo('hideValuesOnSelect', this)" class="form-control-lg"> 
+				 		
+				 		
+				 		<option value="0">Customer</option>
+				 		<option value="1">Tailor</option>
+				 	</select>
+					<br><br> -->
+				 </div>
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+				 <!-- <div class="alert">
+  						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  						 -->						<!-- This is an alert box. -->
+				<!-- </div>  -->
+			</div>
+		</form>
+			
+	</div>
+	<div class="border-top pt-3">
+		<small class="text-muted">
+		Already Have An Account? <a class="ml-2" href="{{url_for('login')}}"> Sign In Now </a>
+		</small>
+	
+	</div>
+
+	{% block javascripts %}
+	<script type="text/javascript">
+		window.onload = function() {
+		  document.getElementById('hideValuesOnSelect').style.display = 'none';
+		   document.getElementById('shop').style.display = 'none';
+		   		   document.getElementById('skills').style.display = 'none';
+
+		};
+$("#user_type").change(function(){
+		     var type = this.value;
+		   if(type=="0"){
+		     $("#hideValuesOnSelect").hide();// hide multiple sections
+		     $("#shop").hide();
+		     $("#skills").hide();
+		   }
+		   
+		  });
+$("#user_type").change(function(){
+		     var type = this.value;
+		   if(type=="1"){
+		     $("#hideValuesOnSelect").show();// hide multiple sections
+		     $("#shop").show();
+		     $("#skills").show();
+		   }
+		
+		  });
+		
+		
+		
+	</script>
+	{% endblock javascripts %}
+{% endblock content %}
+
+
+
