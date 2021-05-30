@@ -3,7 +3,7 @@
 <head>
 	<!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
    
 
@@ -18,9 +18,15 @@
     <!-- Theme style -->
   
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,500,600,700,800,900" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='adminlte-v3/plugins/select2/css/select2.css') }}">
+
+    <!-- slider -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='carousel-09/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='carousel-09/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='carousel-09/css/style.css') }}">
 
     <!-- daterange picker -->
 
@@ -130,18 +136,54 @@
             </div>
         </header>
 
-				<div class="container"> 
-					{% with messages = get_flashed_messages(with_categories=true) %}
-					   {% if messages %}
-					       {% for category, message in messages%}
-					           <div class="alert alert-{{ category }}">
-						          {{ message }}
-					           </div>
-					       {% endfor %}
-					   {% endif %}
-				    {% endwith %}
-				    {% block content %} {% endblock%}
+        <div class="container"> 
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages%}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% block content %} {% endblock%}
+        </div>
+
+        <!-- Slider -->
+        <section class="ftco-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<h2 class="heading-section mb-5 pb-md-4">Carousel #09</h2>
+					</div>
+					<div class="col-md-12">
+						<div class="hero featured-carousel owl-carousel">
+							<div class="item">
+								<div class="work">
+									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/slider-1.jpg);">
+										
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="work">
+									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/slider-2.jpg);">
+
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="work">
+									<div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/slider-3.jpg);">
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+			</div>
+		</section>
 				
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -151,8 +193,14 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> 
  -->
- <script src="{{ url_for('static', filename='/adminlte-v3/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/adminlte-v3/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url_for('static', filename='/adminlte-v3/dist/js/adminlte.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='carousel-09/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='carousel-09/js/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='carousel-09/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='carousel-09/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='carousel-09/js/main.js') }}"></script>
 
 
 
