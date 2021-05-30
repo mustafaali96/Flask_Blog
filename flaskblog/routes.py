@@ -173,7 +173,7 @@ def add_collection():
         db.session.add(collection)
         db.session.commit()
         flash('Your product has been updated!', 'success')
-        return redirect(url_for('tailor_collection'))
+        return redirect(url_for('collections'))
         # product_image = url_for('static', filename='collections/')
     return render_template('addcollection.html', title='Add Collection', form=form)
 
@@ -181,19 +181,23 @@ def add_collection():
 
 #tailor collections
 @app.route('/dashboard/collections/', methods=['GET','POST'])
-def tailor_collection():
+def collections():
     app.config['UPLOAD_PATH'] = '/home/omama/Desktop/Flask_Blog/flaskblog/static/abayacollection'
     app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif', '.PNG',  '.JPG']
 
     if request.method == 'GET':
-        # print(current_user.id)
-        collections = Collection.query.filter(Collection.user_id==current_user.id).all()
-        # print("collections: ", collections)
+        if current_user.is_authenticated:
+            if current_user.user_type == 1:
+                collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+            else:
+                collections = Collection.query.all()
+        else:
+            collections = Collection.query.all()
         # imagefile = url_for('static', filename='abayacollection/' + current_user.imagefile)
-    return render_template('tailorcollection.html', title='Tailor Collections', collections=collections)
+    return render_template('collection.html', title='Tailor Collections', collections=collections)
     
 
-@app.route('/dashboard/collections/<collection_id>/', methods=['GET','POST'])
+@app.route('/collections/<collection_id>/', methods=['GET','POST'])
 def collection_detail(collection_id):
     if request.method == 'GET':
         # print(current_user.id)
@@ -210,9 +214,16 @@ def guest_collection_detail(collection_id):
 @app.route('/filter/<filter_type>/', methods=['GET','POST'])
 def filter_collection(filter_type):
     if request.method == 'GET':
-        print(filter_type)
         filters = { filter_type : True }
         filter_collection = Collection.query.filter_by(**filters)
+    return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
+
+@app.route('/filterTailor/<filter_user>/', methods=['GET','POST'])
+def filter_tailor(filter_user):
+    if request.method == 'GET':
+        print(filter_user)
+        # filters = { filter_type : True }
+        filter_collection = Collection.query.filter(Collection.user_id==filter_user).all()
     return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
 
 @app.route('/about/')

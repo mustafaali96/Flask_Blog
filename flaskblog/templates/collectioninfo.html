@@ -9,10 +9,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       display: none;
    }
 </style>
+
 {% endblock style %}
-{% block title %} Dashboard {% endblock title %}
+
+<!-- {% block title %} Dashboard {% endblock title %} -->
+
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}
+<!-- {% block stylesheets %}
 <style type="text/css">
 	#search {
 		display: none!important;
@@ -21,27 +24,37 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     margin: 1em 0;
     display: none;
 }
-
 </style>
-{% endblock stylesheets %}
+
+{% endblock stylesheets %} -->
 
 {% block content %}
 
+<div class="container">
+  <div class="images">
+    <img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}"/>
+  </div>
+  
+  
+  <div class="product">
+    <!-- <p>Women's Running Shoe</p> -->
+    <h1>{{ collection.title }}</h1>
+    <h2>Rs {{ collection.price }}</h2>
+    <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+    <div class="buttons">
+      <button class="add">Add to Cart</button>
+    </div> 
+  </div>
+</div>
 
- <div class="col-md-4">
-    <div class="card o-hidden" style="border-radius: 5px;box-shadow: 0px 4px 5px 0px #e9e9e9">
-       <div class="card-body" style="padding: 25px 15px;">
-          <div class="w-100 text-center">
-            <img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}" alt="Avatar" style="width:40%">
-          </div>
-          <h3 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;">{{ collection.title }}</h3>
-          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.price }}</p>
-          {% if not current_user.is_authenticated %}
-          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Seller: </b> {{ collection.user.firstname }}</p>
+{% if not current_user.user_type == 1 %}
+<footer>
+  <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname }}</a> ♡
+</footer>
+{% endif %}
 
-          {% endif %}
-       </div>
-    </div>
- </div>
+
+
+
 
  {% endblock content %}
