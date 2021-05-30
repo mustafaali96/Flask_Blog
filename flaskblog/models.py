@@ -93,3 +93,24 @@ class Collection(db.Model):
 	    return self.authenticated
 
 
+
+class Size(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(20), nullable=False ) #S M L
+	category = db.Column(db.Integer, nullable=False, default = 0) # 0-Abaya 1-Hijab
+	Length = db.Column(db.Float, nullable=True, default = 0)
+	width = db.Column(db.Float, nullable=True, default = 0)
+	Shoulder = db.Column(db.Float, nullable=True, default = 0)
+	Armhole = db.Column(db.Float, nullable=True, default = 0)
+	Sleeves = db.Column(db.Float, nullable=True, default = 0)
+	Chest = db.Column(db.Float, nullable=True, default = 0)
+	
+	def __repr__(self):
+		return f"Collection('{self.title}','{self.category}'"
+
+
+	def get_id(self):
+	    return self.id
+
+
+
