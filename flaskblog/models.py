@@ -106,11 +106,33 @@ class Size(db.Model):
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	
 	def __repr__(self):
-		return f"Collection('{self.title}','{self.category}'"
+		return f"Size('{self.title}','{self.category}')"
 
 
 	def get_id(self):
 	    return self.id
+
+class Order(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	customer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	user = db.relationship('User')
+	collection_id = db.Column(db.Integer, db.ForeignKey('collection.id'))
+	collection = db.relationship('Collection')
+	Length = db.Column(db.Float, nullable=True, default = 0)
+	width = db.Column(db.Float, nullable=True, default = 0)
+	Shoulder = db.Column(db.Float, nullable=True, default = 0)
+	Armhole = db.Column(db.Float, nullable=True, default = 0)
+	Sleeves = db.Column(db.Float, nullable=True, default = 0)
+	Chest = db.Column(db.Float, nullable=True, default = 0)
+	Is_Order_confirmed = db.Column(db.Boolean, default = False)
+
+	def __repr__(self):
+		return f"Order('{self.customer_id}','{self.collection_id}')"
+
+
+	def get_id(self):
+	    return self.id
+
 
 
 
