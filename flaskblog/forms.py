@@ -72,7 +72,7 @@ class AddCollectionForm(FlaskForm):
 	fabric = StringField('Fabric', validators=[DataRequired(), Length(min=2, max=20)])
 	# updated_at = DateTimeField('Date', format='%m/%d/%y')
  # description = StringField('Description', validators=[DataRequired(), Length(min=2, max=20)])
-	category = SelectField('Collection Type', choices=[('0', 'Abaya'), ('1', 'Hijab'), ('2', 'Hijab Caps'), ('3', 'Pins')])
+	category = SelectField('Collection Type', choices=[('0', 'Abaya'), ('1', 'Hijab')])
 	description = StringField('Description', validators=[DataRequired(), Length(min=2, max=20)])
 	title = StringField('Product Name', validators=[DataRequired(), Length(min=2, max=20)])
 	# uploaded_by = IntegerField('TailorId')

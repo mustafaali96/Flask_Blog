@@ -1,18 +1,23 @@
 {% extends "layout.html"%}
 {% block content %} 
 
+
 <div class="page-body">
 	<div class="row" style="padding-top: 4rem">
 		{% for collection in all_collections %}
 			<div class="col-md-4">
+
 			    <div class="card mb-4 border-0"> 
 			       <div class="card-body" style="padding: 25px 15px;">
 			          <div class="w-100 text-center">
-			            <a href="{{ url_for('guest_collection_detail', collection_id=collection.id) }}"><img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}" width="250" height="250"></a>
+			            <a href="{{ url_for('guest_collection_detail', collection_id=collection.id) }}">
+			            	<div class="images">
+			            	<img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}" width="250" height="250"></a>
+			            </div>
 			          </div>
 			          <h3 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;"><a style="color:black"; href="{{ url_for('guest_collection_detail', collection_id=collection.id) }}">{{ collection.title }}</a></h3>
 			          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.price }}</p>
-			          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Tailor: </b> {{ collection.user.firstname }}</p>
+			          
 			          
 			       </div>
 			    </div>

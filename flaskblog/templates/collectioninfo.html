@@ -32,7 +32,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <div class="container">
   <div class="images">
-    <img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}"/>
+    <img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}"/
+   width="300" height="450"  style="width:500px;height:500px;">
   </div>
   
   
@@ -40,16 +41,38 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- <p>Women's Running Shoe</p> -->
     <h1>{{ collection.title }}</h1>
     <h2>Rs {{ collection.price }}</h2>
+    {% if not current_user.user_type == 1 %}
+    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</p>
+        <br>
     <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
-    <div class="buttons">
-      <button class="add">Add to Cart</button>
-    </div> 
+    <div class="name">
+     <p> <lable for="pa-size"> Size </lable></p>
+
+    {% else %}
+    <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
+    <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+
+    {% endif %}
+   
+    <br> 
+    
+
   </div>
+
 </div>
 
 {% if not current_user.user_type == 1 %}
+
+<br>
+   <div class="buttons">
+      
+
+      <button class="add">Add to Cart</button>
+    </div> 
+
 <footer>
-  <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname }}</a> ♡
+  <br>
+  <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
 </footer>
 {% endif %}
 
