@@ -8141,7 +8141,7 @@ body {
 a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
-  transition: .3s all ease;
+  transition: .4s all ease;
   color: #ff5959; }
   a:hover, a:focus {
     text-decoration: none !important;
@@ -8166,7 +8166,7 @@ h1, h2, h3, h4, h5,
   font-family: "Poppins", Arial, sans-serif; }
 
 .ftco-section {
-  padding: 7em 0; }
+  padding: -10em 0; }
 
 .ftco-no-pt {
   padding-top: 0; }

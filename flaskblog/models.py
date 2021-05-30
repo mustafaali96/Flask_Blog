@@ -114,6 +114,7 @@ class Size(db.Model):
 
 class Order(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
+	quantity = db.Column(db.Integer, nullable=False, default=1) 
 	customer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	user = db.relationship('User')
 	collection_id = db.Column(db.Integer, db.ForeignKey('collection.id'))
@@ -125,6 +126,7 @@ class Order(db.Model):
 	Sleeves = db.Column(db.Float, nullable=True, default = 0)
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	Is_Order_confirmed = db.Column(db.Boolean, default = False)
+	order_created_at = db.Column(db.DateTime, default=datetime.now().strftime("%B%d,%Y %I:%M%p"))
 
 	def __repr__(self):
 		return f"Order('{self.customer_id}','{self.collection_id}')"

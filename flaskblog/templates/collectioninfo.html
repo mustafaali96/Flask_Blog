@@ -62,13 +62,26 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </div>
 
 {% if not current_user.user_type == 1 %}
+  {% if current_user.is_authenticated %}
+    <form method="post">
+      {{ form.hidden_tag() }}
+        <!-- <label for="length">length</label> -->
+        <input type='hidden' name="length" id="length" value="1">
+        <!-- <label for="width">width</label> -->
+        <input type="hidden" name="width" id="width" value="1">
+        <input type='hidden' name="shoulder" id="shoulder" value="1">
+        <input type='hidden' name="armhole" id="armhole" value="1">
+        <input type='hidden' name="sleeves" id="sleeves" value="1">
+        <input type='hidden' name="chest" id="chest" value="1">
+        <input type='hidden' name="quantity" id="quantity" value="2">
+        <!-- <input type="submit"> -->
+    
 
-<br>
-   <div class="buttons">
-      
-
-      <button class="add">Add to Cart</button>
-    </div> 
+       <div class="buttons">
+          <button type="submit">Add to Cart</button>
+        </div> 
+    </form>
+  {% endif %}
 
 <footer>
   <br>

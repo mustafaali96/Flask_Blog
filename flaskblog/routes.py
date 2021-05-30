@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect,request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import *
-from flaskblog.models import Collection, User
+from flaskblog.models import Collection, User, Order, Size
 from flask_login import login_user, current_user, logout_user, LoginManager 
 from datetime import datetime
 import os
@@ -199,17 +199,45 @@ def collections():
 
 @app.route('/collections/<collection_id>/', methods=['GET','POST'])
 def collection_detail(collection_id):
+    form = OrderForm()
     if request.method == 'GET':
         # print(current_user.id)
         collection = Collection.query.filter(Collection.id==collection_id)[0]
-    return render_template('collectioninfo.html', title='Details', collection=collection)
+    if request.method == 'POST':
+        if current_user.is_authenticated:
+            # pass
+            Length = request.form["length"]
+            width = request.form["width"]
+            Shoulder = request.form["shoulder"]
+            Armhole = request.form["armhole"]
+            Sleeves = request.form["sleeves"]
+            Chest = request.form["chest"]
+            quantity = request.form["quantity"]
+
+
+            order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
+            print(order)
+            db.session.add(order)
+            db.session.commit()
+            flash('Your product has been updated!', 'success')
+            return redirect(url_for('collections'))
+        else:
+            flash('Please register yourself first!', 'success')
+            return redirect(url_for('register'))
+
+    return render_template('collectioninfo.html', title='Details', collection=collection, form=form)
+
 
 @app.route('/<collection_id>/', methods=['GET','POST'])
 def guest_collection_detail(collection_id):
     if request.method == 'GET':
         # print(current_user.id)
         collection = Collection.query.filter(Collection.id==collection_id)[0]
+    if request.method == 'POST':
+        return redirect(url_for('register'))
+
     return render_template('collectioninfo.html', title='Details', collection=collection)
+
 
 @app.route('/filter/<filter_type>/', methods=['GET','POST'])
 def filter_collection(filter_type):
@@ -217,6 +245,7 @@ def filter_collection(filter_type):
         filters = { filter_type : True }
         filter_collection = Collection.query.filter_by(**filters)
     return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
+
 
 @app.route('/filterTailor/<filter_user>/', methods=['GET','POST'])
 def filter_tailor(filter_user):
