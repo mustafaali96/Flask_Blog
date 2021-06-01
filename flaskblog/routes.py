@@ -202,7 +202,16 @@ def collection_detail(collection_id):
     form = OrderForm()
     if request.method == 'GET':
         # print(current_user.id)
+
         collection = Collection.query.filter(Collection.id==collection_id)[0]
+        print(collection.category)
+
+ 
+        sizes = Size.query.filter(Size.category==collection.category).all()
+        # print(size)
+        # for si in size:
+        #     print(si.Length)
+
     if request.method == 'POST':
         if current_user.is_authenticated:
             # pass
@@ -225,7 +234,7 @@ def collection_detail(collection_id):
             flash('Please register yourself first!', 'success')
             return redirect(url_for('register'))
 
-    return render_template('collectioninfo.html', title='Details', collection=collection, form=form)
+    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
 
 
 @app.route('/<collection_id>/', methods=['GET','POST'])

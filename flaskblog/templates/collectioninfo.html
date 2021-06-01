@@ -59,11 +59,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <div id="menu" title="menu"> <!--Menu and items in the menu-->
     <ul>
-        <a href="#" > XS </a>
-        <a href="#" > S </a>
-        <a href="#" > M </a>
-        <a href="#" > L </a>
-        <a href="#" > XL </a>
+      {% for size in sizes %}
+        <a>  {{ size.title }} </a>
+      {% endfor %}
 
     </ul>
 </div>
