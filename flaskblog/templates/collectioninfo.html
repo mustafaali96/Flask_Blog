@@ -65,6 +65,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     </ul>
 </div>
+
+<p id="result">None</p>
+<select id="size">
+  {% for size in sizes %}
+    <option value="{{ size.Length }}">{{ size.title }}</option>
+  {% endfor %}
+
+</select>
+
 </div>
 <div class="quantity ">
     
@@ -115,5 +124,29 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 
+  {% block javascripts %}
+      <script>
 
- {% endblock content %}
+        function GetSelectedSize(){
+            var e = document.getElementById("size");
+            var result = e.options[e.selectedIndex].value;
+            
+            document.getElementById("result").innerHTML = result;
+        }
+
+        function GetSelectedSizeValues(){
+            var e = document.getElementById("size");
+            var result = e.options[e.selectedIndex].text;
+            
+            document.getElementById("result").innerHTML = result;
+        }
+        
+    </script>
+
+  {% endblock %}
+
+  <button type="button" onclick="GetSelectedSize()">Get Selected Size</button>
+
+  <button type="button" onclick="GetSelectedSizeValues()">Get Selected Size Value</button>
+
+{% endblock content %}
