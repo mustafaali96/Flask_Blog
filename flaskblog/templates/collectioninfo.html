@@ -50,7 +50,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
      <p> <lable for="pa-size"> Size: </lable></p>
      
  
- <!-- <button class="button button1">2px</button>
+<!--  <button class="button button1">2px</button>
  <button class="button button2">4px</button>
  <button class="button button3">8px</button>
  <button class="button button4">12px</button>
@@ -59,22 +59,23 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <div id="menu" title="menu"> <!--Menu and items in the menu-->
     <ul>
-      {% for size in sizes %}
-        <a>  {{ size.title }} </a>
+      {% for collectionsize in sizes %}
+        <a>  {{ collectionsize.title }} </a>
       {% endfor %}
 
     </ul>
 </div>
-
-<p id="result">None</p>
-<select id="size">
-  {% for size in sizes %}
-    <option value="{{ size.Length }}">{{ size.title }}</option>
+</div>
+<select id="mysize">
+  {% for collectionsize in sizes %}
+    <option value="{{ collectionsize.Length }}">{{ collectionsize.title }}</option>
   {% endfor %}
 
 </select>
 
-</div>
+ 
+<p id="result">None</p>
+
 <div class="quantity ">
     
 
@@ -128,14 +129,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <script>
 
         function GetSelectedSize(){
-            var e = document.getElementById("size");
+            var e = document.getElementById("mysize");
             var result = e.options[e.selectedIndex].value;
             
             document.getElementById("result").innerHTML = result;
         }
 
         function GetSelectedSizeValues(){
-            var e = document.getElementById("size");
+            var e = document.getElementById("mysize");
             var result = e.options[e.selectedIndex].text;
             
             document.getElementById("result").innerHTML = result;
