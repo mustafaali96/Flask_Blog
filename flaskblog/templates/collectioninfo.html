@@ -103,14 +103,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <form method="post">
       {{ form.hidden_tag() }}
         <!-- <label for="length">length</label> -->
-        <input type='hidden' name="length" id="length" value="1">
+        <input type='text' name="length" id="flength" value="">
         <!-- <label for="width">width</label> -->
-        <input type="hidden" name="width" id="width" value="1">
-        <input type='hidden' name="shoulder" id="shoulder" value="1">
-        <input type='hidden' name="armhole" id="armhole" value="1">
-        <input type='hidden' name="sleeves" id="sleeves" value="1">
-        <input type='hidden' name="chest" id="chest" value="1">
-        <input type='hidden' name="quantity" id="quantity" value="2">
+        <input type="text" name="width" id="fwidth" value="">
+        <input type='text' name="shoulder" id="fshoulder" value="">
+        <input type='text' name="armhole" id="farmhole" value="">
+        <input type='text' name="sleeves" id="fsleeves" value="">
+        <input type='text' name="chest" id="fchest" value="">
+        <input type='text' name="quantity" id="fquantity" value="">
         <!-- <input type="submit"> -->
     
 
@@ -141,6 +141,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             var e = document.getElementById("mysize");
             var size_label = e.options[e.selectedIndex].text;
             var size_values = e.options[e.selectedIndex].value.split(",");
+            for (var i = 0; i < size_values.length; i++)
+              if (size_values[i] == 'None')
+                size_values[i] = 0;
             var length = size_values[0];
             var width = size_values[1];
             var shoulder = size_values[2];
@@ -155,6 +158,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             document.getElementById("armhole").innerHTML = armhole;
             document.getElementById("sleeves").innerHTML = sleeves;
             document.getElementById("chest").innerHTML = chest;
+            
+            document.getElementById("flength").setAttribute('value',length);
+            document.getElementById("fwidth").setAttribute('value',width);
+            document.getElementById("fshoulder").setAttribute('value',shoulder);
+            document.getElementById("farmhole").setAttribute('value',armhole);
+            document.getElementById("fsleeves").setAttribute('value',sleeves);
+            document.getElementById("fchest").setAttribute('value',chest);
         }
 
         function GetSelectedSizeValues(){
