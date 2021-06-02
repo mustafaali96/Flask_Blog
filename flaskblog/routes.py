@@ -208,11 +208,13 @@ def collection_detail(collection_id):
 
  
         sizes = Size.query.filter(Size.category==collection.category).all()
-        # print(size)
-        # for si in size:
-        #     print(si.Length)
+        print(sizes)
+        # for si in sizes:
+        #     print(si.Shoulder)
 
     if request.method == 'POST':
+        collection = Collection.query.filter(Collection.id==collection_id)[0]
+        sizes = Size.query.filter(Size.category==collection.category).all()
         if current_user.is_authenticated:
             # pass
             Length = request.form["length"]

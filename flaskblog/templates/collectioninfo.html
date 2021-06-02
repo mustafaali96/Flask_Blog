@@ -42,54 +42,57 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <h1>{{ collection.title }}</h1>
     <h2>Rs {{ collection.price }}</h2>
     {% if not current_user.user_type == 1 %}
-    <br>
-    <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div>
-        <br>
-    <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
-    <div class="name">
-     <p> <lable for="pa-size"> Size: </lable></p>
-     
+      <br>
+      <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div>
+          <br>
+      <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+      <div class="name">
+      <p> <lable for="pa-size"> Size: </lable></p>
+      
  
-<!--  <button class="button button1">2px</button>
- <button class="button button2">4px</button>
- <button class="button button3">8px</button>
- <button class="button button4">12px</button>
- <button class="button button5">50%</button>  -->
- <a href="#menu" id="toggle"><span></span></a> <!--hamburger button-->
+      <!--  <button class="button button1">2px</button>
+      <button class="button button2">4px</button>
+      <button class="button button3">8px</button>
+      <button class="button button4">12px</button>
+      <button class="button button5">50%</button>  -->
+      <a href="#menu" id="toggle"><span></span></a> <!--hamburger button-->
 
-<div id="menu" title="menu"> <!--Menu and items in the menu-->
-    <ul>
-      {% for collectionsize in sizes %}
-        <a>  {{ collectionsize.title }} </a>
-      {% endfor %}
+      <div id="menu" title="menu"> <!--Menu and items in the menu-->
+          <ul>
+            {% for collectionsize in sizes %}
+              <a>  {{ collectionsize.title }} </a>
+            {% endfor %}
 
-    </ul>
-</div>
-</div>
-<select id="mysize">
-  {% for collectionsize in sizes %}
-    <option value="{{ collectionsize.Length }}">{{ collectionsize.title }}</option>
-  {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <select id="mysize">
+        {% for collectionsize in sizes %}
+          <option value="{{ collectionsize }}">{{ collectionsize.title }}</option>
+        {% endfor %}
 
-</select>
+      </select>
 
  
-<p id="result">None</p>
+      <p id="result">length</p>
+      <p id="result">width</p>
+      <p id="result">shoulder</p>
+      <p id="result">armhole</p>
+      <p id="result">sleeves</p>
+      <p id="result">chest</p>
 
-<div class="quantity ">
+      <div class="quantity ">
     
 
     
-</div>
+    </div>
     {% else %}
-    <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
-    <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+      <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
+      <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
 
     {% endif %}
-   
+        
     <br> 
-    
-
   </div>
 
 </div>
@@ -122,7 +125,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </footer> -->
 {% endif %}
 
-
+<!-- <p id="result.Length">length</p>
+<p id="result.width">width</p>
+<p id="result.Shoulder">shoulder</p>
+<p id="result.Armhole">armhole</p>
+<p id="result.Sleeves">sleeves</p>
+<p id="result.Chest">chest</p> -->
 
 
   {% block javascripts %}
