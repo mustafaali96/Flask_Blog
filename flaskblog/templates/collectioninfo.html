@@ -47,7 +47,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
           <br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
       <div class="name">
-      <p> <lable for="pa-size"> Size: </lable></p>
+      <!-- <p> <lable for="pa-size"> Size: </lable></p> -->
       
  
       <!--  <button class="button button1">2px</button>
@@ -55,9 +55,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <button class="button button3">8px</button>
       <button class="button button4">12px</button>
       <button class="button button5">50%</button>  -->
-      <a href="#menu" id="toggle"><span></span></a> <!--hamburger button-->
+      <!-- <a href="#menu" id="toggle"><span></span></a> 
 
-      <div id="menu" title="menu"> <!--Menu and items in the menu-->
+      <div id="menu" title="menu"> 
           <ul>
             {% for collectionsize in sizes %}
               <a>  {{ collectionsize.title }} </a>
@@ -65,7 +65,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
           </ul>
         </div>
-      </div>
+      </div> -->
       <select id="mysize">
         {% for collectionsize in sizes %}
           <!-- <option value="[{{ collectionsize.title }},{{ collectionsize.Length }}]">{{ collectionsize.title }}</option> -->
@@ -74,13 +74,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
       </select>
 
-      <!-- <p id="size_label">Size</p>
-      <p id="length">length</p>
-      <p id="width">width</p>
-      <p id="shoulder">shoulder</p>
-      <p id="armhole">armhole</p>
-      <p id="sleeves">sleeves</p>
-      <p id="chest">chest</p> -->
+      
 
       <div class="quantity ">
     
@@ -99,7 +93,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </div>
 
 {% if not current_user.user_type == 1 %}
-  {% if current_user.is_authenticated %}
     <form method="post">
       {{ form.hidden_tag() }}
         <!-- <label for="length">length</label> -->
@@ -118,20 +111,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
           <button type="submit">Add to Cart</button>
         </div> 
     </form>
-  {% endif %}
 
 <!-- <footer>
   <br>
   <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
 </footer> -->
 {% endif %}
-<!-- 
-<p id="result">length</p>
-      <p id="result">width</p>
-      <p id="result">shoulder</p>
-      <p id="result">armhole</p>
-      <p id="result">sleeves</p>
-      <p id="result">chest</p> -->
+
 
 
   {% block javascripts %}
@@ -151,13 +137,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             var sleeves = size_values[4];
             var chest = size_values[5];
             
-            document.getElementById("size_label").innerHTML = size_label;
-            document.getElementById("length").innerHTML = length;
-            document.getElementById("width").innerHTML = width;
-            document.getElementById("shoulder").innerHTML = shoulder;
-            document.getElementById("armhole").innerHTML = armhole;
-            document.getElementById("sleeves").innerHTML = sleeves;
-            document.getElementById("chest").innerHTML = chest;
+            
             
             document.getElementById("flength").setAttribute('value',length);
             document.getElementById("fwidth").setAttribute('value',width);
