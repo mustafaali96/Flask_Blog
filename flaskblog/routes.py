@@ -241,13 +241,16 @@ def collection_detail(collection_id):
 
 @app.route('/<collection_id>/', methods=['GET','POST'])
 def guest_collection_detail(collection_id):
+    form = OrderForm()
+    collection = Collection.query.filter(Collection.id==collection_id)[0]
+    sizes = Size.query.filter(Size.category==collection.category).all()
     if request.method == 'GET':
         # print(current_user.id)
         collection = Collection.query.filter(Collection.id==collection_id)[0]
     if request.method == 'POST':
         return redirect(url_for('register'))
 
-    return render_template('collectioninfo.html', title='Details', collection=collection)
+    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
 
 
 @app.route('/filter/<filter_type>/', methods=['GET','POST'])
