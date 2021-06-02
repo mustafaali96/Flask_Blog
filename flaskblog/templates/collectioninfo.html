@@ -68,18 +68,19 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       </div>
       <select id="mysize">
         {% for collectionsize in sizes %}
-          <option value="{{ collectionsize }}">{{ collectionsize.title }}</option>
+          <!-- <option value="[{{ collectionsize.title }},{{ collectionsize.Length }}]">{{ collectionsize.title }}</option> -->
+          <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
         {% endfor %}
 
       </select>
 
- 
-      <p id="result">length</p>
-      <p id="result">width</p>
-      <p id="result">shoulder</p>
-      <p id="result">armhole</p>
-      <p id="result">sleeves</p>
-      <p id="result">chest</p>
+      <p id="size_label">Size</p>
+      <p id="length">length</p>
+      <p id="width">width</p>
+      <p id="shoulder">shoulder</p>
+      <p id="armhole">armhole</p>
+      <p id="sleeves">sleeves</p>
+      <p id="chest">chest</p>
 
       <div class="quantity ">
     
@@ -124,13 +125,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
 </footer> -->
 {% endif %}
-
-<!-- <p id="result.Length">length</p>
-<p id="result.width">width</p>
-<p id="result.Shoulder">shoulder</p>
-<p id="result.Armhole">armhole</p>
-<p id="result.Sleeves">sleeves</p>
-<p id="result.Chest">chest</p> -->
+<!-- 
+<p id="result">length</p>
+      <p id="result">width</p>
+      <p id="result">shoulder</p>
+      <p id="result">armhole</p>
+      <p id="result">sleeves</p>
+      <p id="result">chest</p> -->
 
 
   {% block javascripts %}
@@ -138,16 +139,29 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
         function GetSelectedSize(){
             var e = document.getElementById("mysize");
-            var result = e.options[e.selectedIndex].value;
+            var size_label = e.options[e.selectedIndex].text;
+            var size_values = e.options[e.selectedIndex].value.split(",");
+            var length = size_values[0];
+            var width = size_values[1];
+            var shoulder = size_values[2];
+            var armhole = size_values[3];
+            var sleeves = size_values[4];
+            var chest = size_values[5];
             
-            document.getElementById("result").innerHTML = result;
+            document.getElementById("size_label").innerHTML = size_label;
+            document.getElementById("length").innerHTML = length;
+            document.getElementById("width").innerHTML = width;
+            document.getElementById("shoulder").innerHTML = shoulder;
+            document.getElementById("armhole").innerHTML = armhole;
+            document.getElementById("sleeves").innerHTML = sleeves;
+            document.getElementById("chest").innerHTML = chest;
         }
 
         function GetSelectedSizeValues(){
             var e = document.getElementById("mysize");
-            var result = e.options[e.selectedIndex].text;
+            var size_label = e.options[e.selectedIndex].text;
             
-            document.getElementById("result").innerHTML = result;
+            document.getElementById("size_label").innerHTML = "GetSelectedSizeValues " + size_label;
         }
         
     </script>
