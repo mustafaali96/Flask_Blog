@@ -43,25 +43,21 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <h2>Rs {{ collection.price }}</h2>
     {% if not current_user.user_type == 1 %}
       <br>
-      <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div>
-          <br>
+      <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
       <div class="name">
-      <p> <lable for="pa-size"> Size: </lable></p>
-      
- <select id="mysize">
-        {% for collectionsize in sizes %}
-        <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
-        {% endfor %}
-
-      </select>
+        <p> <lable for="pa-size"> Size: </lable></p>
+        
+        <select id="mysize">
+          {% for collectionsize in sizes %}
+            <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
+          {% endfor %}
+        </select>
       
 
       
 
       <div class="quantity ">
-    
-
     
     </div>
     {% else %}
@@ -72,43 +68,125 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         
     <br> 
   </div>
-<p> <lable for="pa-size"> Size: </lable></p>
 {% if not current_user.user_type == 1 %}
     <form method="post">
       {{ form.hidden_tag() }}
       {% if collection.category == 1 %}
-        <input type='text' name="length" id="flength" placeholder="Length" value="">
-        
-        <input type="text" name="width" id="fwidth" placeholder="Width" value="">
-        <input type='hidden' name="shoulder" id="fshoulder" placeholder="Shoulder" value="">
-        <input type='hidden' name="armhole" id="farmhole" placeholder="Armhole" value="">
-        <input type='hidden' name="sleeves" id="fsleeves" placeholder="Sleeves" value="">
-        <input type='hidden' name="chest" id="fchest" placeholder="Chest" value="">
-        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value="">
+        <p> <lable>Length</lable>
+        <input type='text' name="length" id="flength" placeholder="Length in cm" value=""></p>
+        <p> <lable for="pa-size">Width</lable>
+        <input type="text" name="width" id="fwidth" placeholder="Width in cm" value=""></p>
+        <input type='hidden' name="shoulder" id="fshoulder" placeholder="Shoulder in cm" value=""></p>
+        <input type='hidden' name="armhole" id="farmhole" placeholder="Armhole in cm" value=""></p>
+        <input type='hidden' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value=""></p>
+        <input type='hidden' name="chest" id="fchest" placeholder="Chest in cm" value=""></p>
+        <p> <lable for="pa-size">Quantity</lable>
+        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value=""></p>
       {% else %}
-        <input type='text' name="length" id="flength" placeholder="Length" value="">
-        <input type="hidden" name="width" id="fwidth" placeholder="Width" value="">
-        <input type='text' name="shoulder" id="fshoulder" placeholder="Shoulder" value="">
-        <input type='text' name="armhole" id="farmhole" placeholder="Armhole" value="">
-        <input type='text' name="sleeves" id="fsleeves" placeholder="Sleeves" value="">
-        <input type='text' name="chest" id="fchest" placeholder="Chest" value="">
-        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value="">
+        <p> <lable for="pa-size">Length</lable>
+        <input type='text' name="length" id="flength" placeholder="Length in cm" value=""></p>
+        <input type="hidden" name="width" id="fwidth" placeholder="Width in cm" value=""></p>
+        <p> <lable for="pa-size">Shoulder</lable>
+        <input type='text' name="shoulder" id="fshoulder" placeholder="Shoulder in cm" value=""></p>
+        <p> <lable for="pa-size">Armhole</lable>
+        <input type='text' name="armhole" id="farmhole" placeholder="Armhole in cm" value=""></p>
+        <p> <lable for="pa-size">Sleeves</lable>
+        <input type='text' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value=""></p>
+        <p> <lable for="pa-size">Chest</lable>
+        <input type='text' name="chest" id="fchest" placeholder="Chest in cm" value=""></p>
+        <p> <lable for="pa-size">Quantity</lable>
+        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value=""></p>
       {% endif %}
       <br><br>
 
-       <button type="button" onclick="GetSelectedSize()">Get Selected Size</button>
-<br>
-<br>
-<div class="buttons">
-
-          <button type="submit">Add to Cart</button>
-        </div> 
- 
-
+      <button type="button" onclick="GetSelectedSize()">Get Selected Size</button>
+      <br>
+      <br>
+      <div class="buttons">
+        <button type="submit">Add to Cart</button>
+      </div> 
+    </form>
 
 
-</div>
-      </form>
+      <button id="myBtn">Size Guide</button>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+      
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div class="col-md-8">
+              {% if collection.category == 1 %}
+                <h1><br>Hijabs Size Guide</h1>
+                <p>We have three hijab sizes available.<br><br>
+
+                  Regular:<br>
+                  - 2 yards length.<br>
+                  - Covers chest well, depending on how its styled.<br>
+                  - Can be used for Niqab (chiffon hijabs need to be doubled to make them non-sheer)<br><br>
+                  Maxi:<br>
+                  - 2.5 yards length.<br>
+                  - Covers chest well, depending on how its styled.<br>
+                  - It is great for Niqab (chiffon hijabs need to be doubled to make them non-sheer)<br><br>
+                  
+                  <!-- Square:<br>
+                  - 58 inches by 58 inches.<br>
+                  - Covers chest well, depending on how its styled.<br>
+                  - Can be styled in multiple ways.<br><br> -->
+                </p>
+
+                <h2>Hijabs Size Guide</h2>
+                <table style="width:100%">
+                  <tr>
+                    <th>Size</th>
+                    <th>Length</th>
+                    <th>Width</th>
+                  </tr>
+                  {% for guide in sizes %}
+                    {% if guide.category == 1 %}
+                      <tr>
+                        <td>{{ guide.title }}</td>
+                        <td>{{ guide.Length }}</td>
+                        <td>{{ guide.width }}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </table>
+              
+              {% else %}
+                <h2>Abayas Size Guide</h2>
+                <p>Abayas Size Guide</p>
+
+                <h2>Abayas Size Guide</h2>
+                <table style="width:100%">
+                  <tr>
+                    <th>Size</th>
+                    <th>Length</th>
+                    <th>Shoulder</th>
+                    <th>Armhole</th>
+                    <th>Sleeves</th>
+                    <th>Chest</th>
+                  </tr>
+                  {% for guide in sizes %}
+                    {% if guide.category == 0 %}
+                      <tr>
+                        <td>{{ guide.title }}</td>
+                        <td>{{ guide.Length }}</td>
+                        <td>{{ guide.Shoulder }}</td>
+                        <td>{{ guide.Armhole }}</td>
+                        <td>{{ guide.Sleeves }}</td>
+                        <td>{{ guide.Chest }}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </table>
+              {% endif %}
+        </div>
+          
+        </div>
+      
+      </div>
 
   {% block javascripts %}
       <script>
@@ -144,6 +222,30 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             document.getElementById("size_label").innerHTML = "GetSelectedSizeValues " + size_label;
         }
         
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
     </script>
 
   {% endblock %}
