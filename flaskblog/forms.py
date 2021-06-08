@@ -82,6 +82,8 @@ class OrderForm(FlaskForm):
 	Chest = StringField('Product Chest')
 	quantity = StringField('Product quantity', validators=[DataRequired()])
 
+	
+
 # class UpdateCustomerAccountForm(FlaskForm):
 # 	firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
 # 	lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])

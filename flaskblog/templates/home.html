@@ -1,6 +1,7 @@
 {% extends "layout.html"%}
 {% block content %} 
 
+
 <!-- Slider -->
              <section class="ftco-section">
                 <div class="container">
@@ -27,6 +28,9 @@
                                         <div class="img d-flex align-items-center justify-content-center">
                                             <img src="{{ url_for('static', filename='home_slider/3.jpg')}}">
                                         </div>
+                                        <div class="navigation">
+                                            <lable for="" class="bar">
+                                            </lable>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +60,8 @@
 			         
 			         
 			          <h1 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;"><a style="color:black"; href="{{ url_for('guest_collection_detail', collection_id=collection.id) }}">{{ collection.title }}</a></h1>
-			          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.price }}</p>
+			          <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.price }}</p> -->
+                       <h1 class="h3 m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.price }}</h1>
 			          
 			          
 			       </div>
