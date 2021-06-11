@@ -195,6 +195,26 @@ def collections():
             collections = Collection.query.all()
         # imagefile = url_for('static', filename='abayacollection/' + current_user.imagefile)
     return render_template('collection.html', title='Tailor Collections', collections=collections)
+
+# tailor order
+@app.route('/dashboard/orders/', methods=['GET','POST'])
+def order():
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            if current_user.user_type == 1:
+                collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+                # print(collections)
+                collectionIDs = []
+                for collection in collections:
+                    collectionIDs.append(collection.id)
+                orders = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
+                
+            else:
+                return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))
+        # imagefile = url_for('static', filename='abayacollection/' + current_user.imagefile)
+    return render_template('order.html', title='Tailor Orders', orders=orders)
     
 
 @app.route('/collections/<collection_id>/', methods=['GET','POST'])
