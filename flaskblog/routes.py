@@ -233,8 +233,8 @@ def collection_detail(collection_id):
             flash('Your product has been updated!', 'success')
             return redirect(url_for('collections'))
         else:
-            flash('Please register yourself first!', 'success')
-            return redirect(url_for('register'))
+            flash('Please login yourself first!', 'success')
+            return redirect(url_for('login'))
 
     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
 
@@ -248,7 +248,7 @@ def guest_collection_detail(collection_id):
         # print(current_user.id)
         collection = Collection.query.filter(Collection.id==collection_id)[0]
     if request.method == 'POST':
-        return redirect(url_for('register')) 
+        return redirect(url_for('login')) 
 
     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
  

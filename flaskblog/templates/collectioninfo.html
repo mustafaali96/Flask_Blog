@@ -73,29 +73,29 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       {{ form.hidden_tag() }}
       {% if collection.category == 1 %}
         <p> <lable>Length</lable>
-        <input type='text' name="length" id="flength" placeholder="Length in cm" value=""></p>
+        <input type='text' name="length" id="flength" placeholder="Length in cm" value="" required></p>
         <p> <lable for="pa-size">Width</lable>
-        <input type="text" name="width" id="fwidth" placeholder="Width in cm" value=""></p>
+        <input type="text" name="width" id="fwidth" placeholder="Width in cm" value="" required></p>
         <input type='hidden' name="shoulder" id="fshoulder" placeholder="Shoulder in cm" value=""></p>
         <input type='hidden' name="armhole" id="farmhole" placeholder="Armhole in cm" value=""></p>
         <input type='hidden' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value=""></p>
         <input type='hidden' name="chest" id="fchest" placeholder="Chest in cm" value=""></p>
         <p> <lable for="pa-size">Quantity</lable>
-        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value=""></p>
+        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value="" required></p>
       {% else %}
         <p> <lable for="pa-size">Length</lable>
-        <input type='text' name="length" id="flength" placeholder="Length in cm" value=""></p>
+        <input type='text' name="length" id="flength" placeholder="Length in cm" value="" required></p>
         <input type="hidden" name="width" id="fwidth" placeholder="Width in cm" value=""></p>
         <p> <lable for="pa-size">Shoulder</lable>
-        <input type='text' name="shoulder" id="fshoulder" placeholder="Shoulder in cm" value=""></p>
+        <input type='text' name="shoulder" id="fshoulder" placeholder="Shoulder in cm" value="" required></p>
         <p> <lable for="pa-size">Armhole</lable>
-        <input type='text' name="armhole" id="farmhole" placeholder="Armhole in cm" value=""></p>
+        <input type='text' name="armhole" id="farmhole" placeholder="Armhole in cm" value="" required></p>
         <p> <lable for="pa-size">Sleeves</lable>
-        <input type='text' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value=""></p>
+        <input type='text' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value="" required></p>
         <p> <lable for="pa-size">Chest</lable>
-        <input type='text' name="chest" id="fchest" placeholder="Chest in cm" value=""></p>
+        <input type='text' name="chest" id="fchest" placeholder="Chest in cm" value="" required></p>
         <p> <lable for="pa-size">Quantity</lable>
-        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value=""></p>
+        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value="" required></p>
       {% endif %}
       <br><br>
 
