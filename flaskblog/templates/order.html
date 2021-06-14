@@ -42,6 +42,11 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><int>{{ collection.collection.price }}</int> x <int>{{ collection.quantity }}</int></p> -->
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order date: </b> {{ collection.order_created_at.date() }}</p>
+                <form method="post">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <input  type='hidden' name='confirm_order' value='{{collection.id}}'>
+                  <input class="btn btn-primary" type="submit" style="width:100%" value='Confirm Order'>
+                </form>
 
              </div>
           </div>

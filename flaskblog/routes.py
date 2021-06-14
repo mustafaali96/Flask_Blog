@@ -178,7 +178,6 @@ def add_collection():
     return render_template('addcollection.html', title='Add Collection', form=form)
 
 
-
 #tailor collections
 @app.route('/dashboard/collections/', methods=['GET','POST'])
 def collections():
@@ -196,6 +195,7 @@ def collections():
         # imagefile = url_for('static', filename='abayacollection/' + current_user.imagefile)
     return render_template('collection.html', title='Tailor Collections', collections=collections)
 
+
 # tailor order
 @app.route('/dashboard/orders/', methods=['GET','POST'])
 def order():
@@ -208,12 +208,19 @@ def order():
                 for collection in collections:
                     collectionIDs.append(collection.id)
                 orders = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
-                
             else:
                 return redirect(url_for('login'))
         else:
             return redirect(url_for('login'))
-        # imagefile = url_for('static', filename='abayacollection/' + current_user.imagefile)
+
+    if request.method == 'POST':
+        order_id = request.form.get('confirm_order')
+        print(order_id)
+        print(type(order_id))
+        Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_confirmed = True))
+        
+        db.session.commit()
+        return redirect(url_for('order'))
     return render_template('order.html', title='Tailor Orders', orders=orders)
     
 
