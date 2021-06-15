@@ -203,24 +203,33 @@ def order():
         if current_user.is_authenticated:
             if current_user.user_type == 1:
                 collections = Collection.query.filter(Collection.user_id==current_user.id).all()
-                # print(collections)
                 collectionIDs = []
                 for collection in collections:
                     collectionIDs.append(collection.id)
                 orders = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
+            elif current_user.user_type == 0:
+                orders = Order.query.filter(Order.customer_id==current_user.id).all()
             else:
                 return redirect(url_for('login'))
         else:
             return redirect(url_for('login'))
 
     if request.method == 'POST':
-        order_id = request.form.get('confirm_order')
-        print(order_id)
-        print(type(order_id))
-        Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_confirmed = True))
-        
-        db.session.commit()
-        return redirect(url_for('order'))
+        if current_user.is_authenticated:
+            if current_user.user_type == 1:
+                order_id = request.form.get('confirm_order')
+                Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_confirmed = True))
+                db.session.commit()
+                return redirect(url_for('order'))
+            elif current_user.user_type == 0:
+                order_id = request.form.get('delete_order')
+                Order.query.filter(Order.id == int(order_id)).delete()
+                db.session.commit()
+                return redirect(url_for('order'))
+            else:
+                return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))
     return render_template('order.html', title='Tailor Orders', orders=orders)
     
 
@@ -228,22 +237,13 @@ def order():
 def collection_detail(collection_id):
     form = OrderForm()
     if request.method == 'GET':
-        # print(current_user.id)
-
         collection = Collection.query.filter(Collection.id==collection_id)[0]
-        print(collection.category)
-
- 
         sizes = Size.query.filter(Size.category==collection.category).all()
-        print(sizes)
-        # for si in sizes:
-        #     print(si.Shoulder)
 
     if request.method == 'POST':
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
         if current_user.is_authenticated:
-            # pass
             Length = request.form["length"]
             width = request.form["width"]
             Shoulder = request.form["shoulder"]
@@ -252,9 +252,7 @@ def collection_detail(collection_id):
             Chest = request.form["chest"]
             quantity = request.form["quantity"]
 
-
             order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
-            print(order)
             db.session.add(order)
             db.session.commit()
             flash('Your product has been updated!', 'success')

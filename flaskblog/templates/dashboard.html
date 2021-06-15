@@ -20,11 +20,11 @@
 	<!-- Card stats -->
           <div class="row">
           	<div class="container"> 
-					{% with messages = get_flashed_messages(with_categories=true) %}
-					   {% if messages %}
-              <div class="alert alert-{{ messages.keys }}"></div>
-					   {% endif %}
-				    {% endwith %}
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  <div class="alert alert-{{ messages.keys }}"></div>
+                {% endif %}
+              {% endwith %}
 				  </div>
 
 				
