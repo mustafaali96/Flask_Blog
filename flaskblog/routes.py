@@ -76,7 +76,16 @@ def login():
 # tailorsdashboard
 @app.route("/dashboard/")
 def dashboard():
-    return render_template('dashboard.html', title='dashboard')
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            if current_user.user_type == 1:
+                collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+                collectionIDs = []
+                for collection in collections:
+                    collectionIDs.append(collection.id)
+                orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
+
+    return render_template('dashboard.html', title='dashboard', orders_count=len(orders_count))
 
 # Customer Dashboard
 @app.route("/customer/")
@@ -88,12 +97,8 @@ app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif', '.PNG',  '.JPG']
 
 @app.route('/update/profile/', methods=['GET','POST'])
 def update_profile():
-    print(current_user.user_type)
-    
     user_form = lambda user_type : UpdateTailorAccountForm() if (user_type==1) else UpdateCustomerAccountForm()
-
     form= user_form(current_user.user_type)
-    print(form)
     if request.method == 'POST':
         uploaded_file = request.files['image']
         filename = uploaded_file.filename
