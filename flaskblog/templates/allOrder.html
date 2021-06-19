@@ -40,26 +40,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.collection.price }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b> {{ collection.quantity }}</p>
                 <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><int>{{ collection.collection.price }}</int> x <int>{{ collection.quantity }}</int></p> -->
-
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order date: </b> {{ collection.order_created_at.date() }}</p>
-                {% if current_user.user_type == 1 %}
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
-                  <form method="post">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <input  type='hidden' name='confirm_order' value='{{collection.id}}'>
-                    <input class="btn btn-primary" type="submit" style="width:100%" value='Confirm Order'>
-                  </form>
-                {% else %}
-                  {% if collection.Is_Order_confirmed == 0 %}
-                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Pending</p>
-                    <form method="post">
-                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                      <input  type='hidden' name='delete_order' value='{{collection.id}}'>
-                      <input class="btn btn-danger" type="submit" style="width:100%" value='Delete Order'>
-                    </form>
-                  {% else %} 
-                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p>
-                  {% endif %}
+                {% if collection.Is_Order_confirmed == 0 %}
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Pending</p>
+                {% else %} 
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p>
                 {% endif %}
              </div>
           </div>

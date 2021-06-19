@@ -84,8 +84,9 @@ def dashboard():
                 for collection in collections:
                     collectionIDs.append(collection.id)
                 orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
+                all_orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs)).all()
 
-    return render_template('dashboard.html', title='dashboard', orders_count=len(orders_count))
+    return render_template('dashboard.html', title='dashboard', orders_count=len(orders_count), all_orders_count=len(all_orders_count))
 
 # Customer Dashboard
 @app.route("/customer/")
@@ -236,7 +237,24 @@ def order():
         else:
             return redirect(url_for('login'))
     return render_template('order.html', title='Tailor Orders', orders=orders)
-    
+
+# tailor order
+@app.route('/dashboard/allOrders/', methods=['GET','POST'])
+def all_order():
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            if current_user.user_type == 1:
+                collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+                collectionIDs = []
+                for collection in collections:
+                    collectionIDs.append(collection.id)
+                orders = Order.query.filter(Order.collection_id.in_(collectionIDs)).all()
+            else:
+                return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))  
+    return render_template('allOrder.html', title='Tailor Orders', orders=orders)
+
 
 @app.route('/collections/<collection_id>/', methods=['GET','POST'])
 def collection_detail(collection_id):

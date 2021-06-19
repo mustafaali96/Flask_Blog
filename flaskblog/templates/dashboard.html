@@ -65,7 +65,7 @@
               <div class="inner">
                 <h3><sup style="font-size: 20px"></sup></h3>
 
-                <p style="color: white!important;">Collections</p>
+                <p style="color: white!important;">My Collections</p>
               </div>
               <div class="icon">
                 <i class="fas fa-tshirt"></i>
@@ -78,8 +78,7 @@
 	            <div class="small-box bg-info">
 	              <div class="inner">
 	                <h3></h3>
-
-	                <p style="color: white!important;">Tailor's Orders {{ orders_count }}</p>
+	                <p style="color: white!important;">New Orders: {{ orders_count }}</p>
 	              </div>
 	              <div class="icon">
 	                <i class="ion ion-bag"></i>
@@ -87,9 +86,20 @@
 	              <a href="{{url_for('order')}}" class="small-box-footer">View Orders <i class="fas fa-arrow-circle-right"></i></a>
 	            </div>
           	</div>
-            
-            <div class="col-xl-3 col-md-6">
-              <div class="card card-stats-">              
+                       
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3></h3>
+                    <p style="color: white!important;"></p>All Orders: {{ all_orders_count }}</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                  <a href="{{url_for('all_order')}}" class="small-box-footer"> View All Orders <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
                 
               </div>
             </div>
