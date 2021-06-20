@@ -37,13 +37,23 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <img src="{{ url_for('static', filename='abayacollection/' + collection.collection.product_image) }}" width="250" height="250">
                 </div>
                 <h2 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;"><a style="color:black"; href="{{ url_for('collection_detail', collection_id=collection.id) }}">{{ collection.collection.title }}</a></h2>
-                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Price: </b> {{ collection.collection.price }}</p>
+                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Net Price: </b> {{ collection.collection.price }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b> {{ collection.quantity }}</p>
-                <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><int>{{ collection.collection.price }}</int> x <int>{{ collection.quantity }}</int></p> -->
+                <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><int>{{ collection.collection.price }}</int> * <int>{{ collection.quantity }}</int></p> -->
 
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order date: </b> {{ collection.order_created_at.date() }}</p>
                 {% if current_user.user_type == 1 %}
-                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
+                  {% if collection.collection.category == 1 %}
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Length: </b> {{ collection.Length }}</p>
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Width: </b> {{ collection.width }}</p>
+                  {% else %}
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Length: </b> {{ collection.Length }}</p>
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Shoulder: </b> {{ collection.Shoulder }}</p>
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Armhole: </b> {{ collection.Armhole }}</p>
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Sleeves: </b> {{ collection.Sleeves }}</p>
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Chest: </b> {{ collection.Chest }}</p>
+                  {% endif %}
                   <form method="post">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <input  type='hidden' name='confirm_order' value='{{collection.id}}'>
