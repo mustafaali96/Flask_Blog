@@ -39,7 +39,17 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 <h2 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;"><a style="color:black"; href="{{ url_for('collection_detail', collection_id=collection.id) }}">{{ collection.collection.title }}</a></h2>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Net Price: </b> {{ collection.collection.price }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b> {{ collection.quantity }}</p>
-                <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><int>{{ collection.collection.price }}</int> * <int>{{ collection.quantity }}</int></p> -->
+                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><p id="{{ collection.id }}"></p></p>
+
+
+                <!-- <input type="text" id="txt1" name="text1" value="{{ collection.collection.price }}"> -->
+                <!-- <input type="text" id="txt2" name="text2" value="{{ collection.quantity }}"> -->
+                <button onclick="myFunction('{{ collection.collection.price }}', '{{ collection.quantity }}', '{{ collection.id }}')">Try it</button>
+                
+
+                
+
+
 
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order date: </b> {{ collection.order_created_at.date() }}</p>
                 {% if current_user.user_type == 1 %}
@@ -77,5 +87,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
      {% endfor %}
   </div>
 </div>
+
+{% block javascripts %}
+  <script>
+    function myFunction(price, quantity, t_amt_place) {
+        var x = +price * +quantity;
+        document.getElementById(t_amt_place).innerHTML = x;
+    }
+  </script>
+{% endblock %}
 
  {% endblock content %}
