@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateTimeField, SelectField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flaskblog.models import User, Collection
+from flaskblog.models import User, Collection, Order, Size, CustomSize
 # from flaskblog.cmodels import Customer
 
 class UserRegistrationForm(FlaskForm):

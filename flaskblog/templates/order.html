@@ -31,7 +31,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <div class="row" style="padding-top: 0rem">
     {% for collection in orders %}
       <div class="col-md-4">
-          <div class="card o-hidden" style="border-radius: 5px;box-shadow: 0px 4px 5px 0px #e9e9e9">
+          <!-- <div class="card o-hidden" style="border-radius: 5px;box-shadow: 0px 4px 5px 0px #e9e9e9"> -->
              <div class="card-body" style="padding: 25px 15px;">
                 <div class="w-100 text-center">
                   <img src="{{ url_for('static', filename='abayacollection/' + collection.collection.product_image) }}" width="250" height="250">
@@ -67,7 +67,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <form method="post">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <input  type='hidden' name='confirm_order' value='{{collection.id}}'>
-                    <input class="btn btn-primary" type="submit" style="width:100%" value='Confirm Order'>
+                    <input class="btn btn-primary" type="submit" style="width:50%" value='Confirm Order'>
                   </form>
                 {% else %}
                   {% if collection.Is_Order_confirmed == 0 %}
@@ -75,7 +75,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                     <form method="post">
                       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                       <input  type='hidden' name='delete_order' value='{{collection.id}}'>
-                      <input class="btn btn-danger" type="submit" style="width:100%" value='Delete Order'>
+                      <input class="btn btn-danger" type="submit" style="width:50%" value='Delete Order'>
                     </form>
                   {% else %} 
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p>
@@ -83,7 +83,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 {% endif %}
              </div>
           </div>
-       </div>
+       <!-- </div> -->
      {% endfor %}
   </div>
 </div>

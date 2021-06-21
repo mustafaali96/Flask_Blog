@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect,request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import *
-from flaskblog.models import Collection, User, Order, Size
+from flaskblog.models import Collection, User, Order, Size, CustomSize
 from flask_login import login_user, current_user, logout_user, LoginManager 
 from datetime import datetime
 import os
