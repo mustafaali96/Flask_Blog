@@ -86,12 +86,12 @@ class CustomSizeForm(FlaskForm):
 	name = StringField('Name')
 	relation = StringField('Relation')
 	category = SelectField('Collection Type', choices=[('0', 'Abaya'), ('1', 'Hijab')])
-	Length  = StringField('Product Length')
-	width = StringField('Product width')
-	Shoulder = StringField('Product Shoulder')
-	Armhole = StringField('Product Armhole')
-	Sleeves = StringField('Product Sleeves')
-	Chest = StringField('Product Chest')
+	Length  = StringField('Length')
+	width = StringField('Width')
+	Shoulder = StringField('Shoulder')
+	Armhole = StringField('Armhole')
+	Sleeves = StringField('Sleeves')
+	Chest = StringField('Chest')
 
 # class UpdateCustomerAccountForm(FlaskForm):
 # 	firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
