@@ -311,7 +311,7 @@ def AddCustomSize():
             category = request.form["category"]
             Length = request.form["Length"]
             width = request.form["width"]
-            Shoulder = request.form["shoulder"]
+            Shoulder = request.form["Shoulder"]
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
