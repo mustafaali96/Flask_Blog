@@ -81,7 +81,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <input type='hidden' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value=""></p>
         <input type='hidden' name="chest" id="fchest" placeholder="Chest in cm" value=""></p>
         <p> <lable for="pa-size">Quantity</lable>
-        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value="" required></p>
+        <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="decrement()">-</button>
+        <input type='number' style='width: 10%; text-align: center; border-radius:10%;' name="quantity" id="fquantity" value="1" min="1" required>
+        <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="increment()">+</button></p>  
       {% else %}
         <p> <lable for="pa-size">Length: &nbsp &nbsp</lable>
         <input type='text' name="length" id="flength" placeholder="Length in cm" value="" required></p>
@@ -95,7 +97,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <p> <lable for="pa-size">Chest: &nbsp &nbsp&nbsp</lable>
         <input type='text' name="chest" id="fchest" placeholder="Chest in cm" value="" required></p>
         <p> <lable for="pa-size">Quantity: </lable>
-        <input type='text' name="quantity" id="fquantity" placeholder="Quantity" value="" required></p>
+        <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="decrement()">-</button>
+        <input type='number' style='width: 10%; text-align: center; border-radius:10%;' name="quantity" id="fquantity" value="1" min="1" required>
+        <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="increment()">+</button></p>
+
       {% endif %}
      &nbsp <br>
 
@@ -233,6 +238,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             document.getElementById("fchest").setAttribute('value',chest);
         }
 
+        // Quantity increment
+        function increment() {
+          document.getElementById('fquantity').stepUp();
+        }
+        function decrement() {
+            document.getElementById('fquantity').stepDown();
+        }
         
         
         var modal = document.getElementById("myModal");
