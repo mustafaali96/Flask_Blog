@@ -1,0 +1,102 @@
+{% extends "layout.html"%}
+{% block style %}
+<link rel="stylesheet"
+href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock style %}
+{% block title %} Add Product {% endblock title %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style type="text/css">
+	#search {
+		display: none!important;
+	}
+	.nav-top-wthree {
+    margin: 1em 0;
+    display: none;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+	<div class="content-section"> 
+		<div class="row col-md-12">
+			</div>
+			<div class="col-md-8">
+				<div class=" row col-md-8 offset-md-2" >
+					<form method="POST">
+					{{ form.hidden_tag() }}
+					<fieldset class="row form-group">
+						<legend class="border-bottom mb-4"> Add Custom Size </legend>
+						
+						{% for field in form %}
+							{% if field.id == 'csrf_token' or field.id == 'submit' %}
+
+							{% else %}
+						
+								<div class="col-md-6" id="{{ field.id }}">
+									<div class="form-group">
+										{{ field.label }}
+										{% if field.errors %}
+											{{ field }}
+											<div class="invalid-feedback">
+												{% for error in field.errors %}
+													<span>{{ error }}</span>
+													{% endfor %}
+											</div>
+										{% else %}
+											{{ field }}
+										{% endif %}
+								 	</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+						</fieldset>
+						<div class="buttons">
+							<button type="submit">Add Size</button>
+						</div> 
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% block javascripts %}
+	<script type="text/javascript">
+		window.onload = function() {
+		   document.getElementById('width').style.display = 'none';
+		};
+		$("#category").change(function(){
+		     var type = this.value;
+		   if(type=="0"){
+			 $("#Length").show();
+		     $("#width").hide();
+			 $("#Shoulder").show();
+		     $("#armhole").show();
+			 $("#Sleeves").show();
+		     $("#Chest").show();
+		   }
+		   
+		  });
+		$("#category").change(function(){
+		     var type = this.value;
+		   if(type=="1"){
+		     $("#Length").show();
+		     $("#width").show();
+			 $("#Shoulder").hide();
+		     $("#Armhole").hide();
+			 $("#Sleeves").hide();
+		     $("#Chest").hide();
+		   }
+		
+		  });
+		
+		
+	</script>
+	{% endblock javascripts %}
+{% endblock content %}
+
+
+

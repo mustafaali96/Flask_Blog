@@ -137,4 +137,23 @@ class Order(db.Model):
 
 
 
+class CustomSize(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	customer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	user = db.relationship('User')
+	name = db.Column(db.String(20), nullable=False ) # sister name
+	relation = db.Column(db.String(20), nullable=False ) #sister, mother
+	category = db.Column(db.Integer, nullable=False, default = 0) # 0-Abaya 1-Hijab
+	Length = db.Column(db.Float, nullable=True, default = 0)
+	width = db.Column(db.Float, nullable=True, default = 0)
+	Shoulder = db.Column(db.Float, nullable=True, default = 0)
+	Armhole = db.Column(db.Float, nullable=True, default = 0)
+	Sleeves = db.Column(db.Float, nullable=True, default = 0)
+	Chest = db.Column(db.Float, nullable=True, default = 0)
+	
+	def __repr__(self):
+		return f"Size('{self.user.username}', '{self.category}', '{self.relation}')"
 
+
+	def get_id(self):
+	    return self.id

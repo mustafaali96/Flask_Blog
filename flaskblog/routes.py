@@ -301,6 +301,29 @@ def guest_collection_detail(collection_id):
     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
  
 
+@app.route("/size/add/", methods=['GET','POST'])
+def AddCustomSize():
+    form = CustomSizeForm()
+    if request.method == 'POST':
+        if current_user.is_authenticated:
+            name = request.form["name"]
+            relation = request.form["relation"]
+            category = request.form["category"]
+            Length = request.form["Length"]
+            width = request.form["width"]
+            Shoulder = request.form["shoulder"]
+            Armhole = request.form["Armhole"]
+            Sleeves = request.form["Sleeves"]
+            Chest = request.form["Chest"]
+            customSize = CustomSizeForm(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
+            db.session.add(customSize)
+            db.session.commit()
+            flash('Your size has been added!', 'success')
+            return redirect(url_for('customer_dashboard'))
+        else:
+            flash('Please login yourself first!', 'success')
+            return redirect(url_for('login'))
+    return render_template('addsize.html', title='My Size', form=form)
 
 
  #for hijab and abaya stuff according to users choice 

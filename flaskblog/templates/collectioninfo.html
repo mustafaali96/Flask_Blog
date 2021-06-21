@@ -33,7 +33,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <div class="container">
   <div class="images">
     <img src="{{ url_for('static', filename='abayacollection/' + collection.product_image) }}"/
-   width="300" height="450"  style="width:500px;height:500px;">
+    width="300" height="450"  style="width:500px;height:500px;">
   </div>
   
   
@@ -53,13 +53,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
           {% endfor %}
         </select>
+        <div class="quantity "></div>
       
-
-      
-
-      <div class="quantity ">
-    
-    </div>
     {% else %}
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
@@ -68,7 +63,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         
     <br> 
   </div>
-{% if not current_user.user_type == 1 %}
+  {% if not current_user.user_type == 1 %}
     <form method="post">
       {{ form.hidden_tag() }}
       {% if collection.category == 1 %}
@@ -102,11 +97,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="increment()">+</button></p>
 
       {% endif %}
-     &nbsp <br>
+      &nbsp <br>
 
       <button type="button" onclick="GetSelectedSize()">Get Customize Size</button>       
 
-      
       <br>
       <div class="buttons">
         <button type="submit">Add to Cart</button>
@@ -115,103 +109,102 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
     <button id="myBtn">Size Guide</button>
-      <!-- The Modal -->
-      <div id="myModal" class="modal">
-      
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div class="col-md-8">
-              {% if collection.category == 1 %}
-                <h1><br>Hijabs Size Guide</h1>
-                <p>We have three hijab sizes available.<br><br>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+    
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="col-md-8">
+            {% if collection.category == 1 %}
+              <h1><br>Hijabs Size Guide</h1>
+              <p>We have three hijab sizes available.<br><br>
 
-                  Regular:<br>
-                  - 2 yards length.<br>
-                  - Covers chest well, depending on how its styled.<br>
-                  - Can be used for Niqab (chiffon hijabs need to be doubled to make them non-sheer)<br><br>
-                  Maxi:<br>
-                  - 2.5 yards length.<br>
-                  - Covers chest well, depending on how its styled.<br>
-                  - It is great for Niqab (chiffon hijabs need to be doubled to make them non-sheer)<br><br>
-                  
-                  <!-- Square:<br>
-                  - 58 inches by 58 inches.<br>
-                  - Covers chest well, depending on how its styled.<br>
-                  - Can be styled in multiple ways.<br><br> -->
-                </p>
+                Regular:<br>
+                - 2 yards length.<br>
+                - Covers chest well, depending on how its styled.<br>
+                - Can be used for Niqab (chiffon hijabs need to be doubled to make them non-sheer)<br><br>
+                Maxi:<br>
+                - 2.5 yards length.<br>
+                - Covers chest well, depending on how its styled.<br>
+                - It is great for Niqab (chiffon hijabs need to be doubled to make them non-sheer)<br><br>
+                
+                <!-- Square:<br>
+                - 58 inches by 58 inches.<br>
+                - Covers chest well, depending on how its styled.<br>
+                - Can be styled in multiple ways.<br><br> -->
+              </p>
 
-                <h2>Hijabs Size Guide</h2>
-                <table style="width:100%">
-                  <tr>
-                    <th>Size</th>
-                    <th>Length</th>
-                    <th>Width</th>
-                  </tr>
-                  {% for guide in sizes %}
-                    {% if guide.category == 1 %}
-                      <tr>
-                        <td>{{ guide.title }}</td>
-                        <td>{{ guide.Length }}</td>
-                        <td>{{ guide.width }}</td>
-                      </tr>
-                    {% endif %}
-                  {% endfor %}
-                </table>
-              
-              {% else %}
-                <h1>Abayas Size Guide</h1>
-                <p>Measuring Tips to Assure The Best Fit<br><br>
-                  How to Measure?<br>
-                  Stand straight and ask someone to take your measurements with an inching tape. Alternatively, measure one of your existing abayas or a shirt that fits you well.<br><br>
-                  
-                  Length<br>
-                  Measure from shoulder to the ankle or bottom of the dress (hem).<br><br>
-                  
-                  Shoulder<br>
-                  Measure your shoulder width from joint-to-joint, from shoulder tip to shoulder tip.<br><br>
-                  
-                  Armhole<br>
-                  Measure from your shoulder to your armpit. This is your armpit depth. Your armhole is roughly the double of this.<br><br>
-                  
-                  Chest<br>
-                  With arms at sides, place tape measure under your arms and run it around the fullest part of the bustline and across the shoulder blades.<br><br>
-                  
-                  Sleeve<br>
-                  Measure from the top of your shoulder joint (near the neck) and straight down your arm up until the length you would like your sleeve to reach.
-                </p>
+              <h2>Hijabs Size Guide</h2>
+              <table style="width:100%">
+                <tr>
+                  <th>Size</th>
+                  <th>Length</th>
+                  <th>Width</th>
+                </tr>
+                {% for guide in sizes %}
+                  {% if guide.category == 1 %}
+                    <tr>
+                      <td>{{ guide.title }}</td>
+                      <td>{{ guide.Length }}</td>
+                      <td>{{ guide.width }}</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </table>
+            
+            {% else %}
+              <h1>Abayas Size Guide</h1>
+              <p>Measuring Tips to Assure The Best Fit<br><br>
+                How to Measure?<br>
+                Stand straight and ask someone to take your measurements with an inching tape. Alternatively, measure one of your existing abayas or a shirt that fits you well.<br><br>
+                
+                Length<br>
+                Measure from shoulder to the ankle or bottom of the dress (hem).<br><br>
+                
+                Shoulder<br>
+                Measure your shoulder width from joint-to-joint, from shoulder tip to shoulder tip.<br><br>
+                
+                Armhole<br>
+                Measure from your shoulder to your armpit. This is your armpit depth. Your armhole is roughly the double of this.<br><br>
+                
+                Chest<br>
+                With arms at sides, place tape measure under your arms and run it around the fullest part of the bustline and across the shoulder blades.<br><br>
+                
+                Sleeve<br>
+                Measure from the top of your shoulder joint (near the neck) and straight down your arm up until the length you would like your sleeve to reach.
+              </p>
 
-                <h2>Abayas Size Guide</h2>
-                <table style="width:100%">
-                  <tr>
-                    <th>Size</th>
-                    <th>Length</th>
-                    <th>Shoulder</th>
-                    <th>Armhole</th>
-                    <th>Sleeves</th>
-                    <th>Chest</th>
-                  </tr>
-                  {% for guide in sizes %}
-                    {% if guide.category == 0 %}
-                      <tr>
-                        <td>{{ guide.title }}</td>
-                        <td>{{ guide.Length }}</td>
-                        <td>{{ guide.Shoulder }}</td>
-                        <td>{{ guide.Armhole }}</td>
-                        <td>{{ guide.Sleeves }}</td>
-                        <td>{{ guide.Chest }}</td>
-                      </tr>
-                    {% endif %}
-                  {% endfor %}
-                </table>
-              {% endif %}
-        </div>
-          
-        </div>
-      
+              <h2>Abayas Size Guide</h2>
+              <table style="width:100%">
+                <tr>
+                  <th>Size</th>
+                  <th>Length</th>
+                  <th>Shoulder</th>
+                  <th>Armhole</th>
+                  <th>Sleeves</th>
+                  <th>Chest</th>
+                </tr>
+                {% for guide in sizes %}
+                  {% if guide.category == 0 %}
+                    <tr>
+                      <td>{{ guide.title }}</td>
+                      <td>{{ guide.Length }}</td>
+                      <td>{{ guide.Shoulder }}</td>
+                      <td>{{ guide.Armhole }}</td>
+                      <td>{{ guide.Sleeves }}</td>
+                      <td>{{ guide.Chest }}</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </table>
+            {% endif %}
       </div>
+        
+      </div>
+    </div>
 
-  {% block javascripts %}
+    {% block javascripts %}
       <script>
 
         function GetSelectedSize(){
@@ -271,21 +264,16 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             modal.style.display = "none";
           }
         }
-    </script>
+      </script>
 
-  {% endblock %}
-
-
+    {% endblock %}
   {% endif %}
 
-  
-<footer>
-  <br>
-
-  <br>
-  
-  <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
-</footer>
+  <footer>
+    <br><br>
+    <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
+  </footer>
+</div>
 
 
 {% endblock content %}
