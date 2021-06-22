@@ -304,6 +304,8 @@ def guest_collection_detail(collection_id):
 @app.route("/size/add/", methods=['GET','POST'])
 def AddCustomSize():
     form = CustomSizeForm()
+    if request.method == 'GET':
+        form = CustomSizeForm()
     if request.method == 'POST':
         if current_user.is_authenticated:
             name = request.form["name"]
@@ -315,7 +317,8 @@ def AddCustomSize():
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
-            customSize = CustomSizeForm(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
+            print(name, relation, category, Length,width,Sleeves)
+            customSize = CustomSize(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
             db.session.add(customSize)
             db.session.commit()
             flash('Your size has been added!', 'success')
