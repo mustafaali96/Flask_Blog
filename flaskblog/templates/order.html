@@ -55,7 +55,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 
                 {% if current_user.user_type == 1 %}
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
-                  {% if current_user.user_type == 1 %}
+                  
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Contact Number: </b> {{ collection.user.number }}</p>
                   {% if collection.collection.category == 1 %}
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Length: </b> {{ collection.Length }}</p>
@@ -83,7 +83,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   {% else %} 
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p>
                   {% endif %}
-                {% endif %}
                  {% endif %}
              </div>
           </div>
