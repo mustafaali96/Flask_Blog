@@ -36,7 +36,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     width="300" height="450"  style="width:500px;height:500px;">
   </div>
   
-  
+
   <div class="product">
     <!-- <p>Women's Running Shoe</p> -->
     <h1>{{ collection.title }}</h1>
@@ -91,15 +91,21 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <input type='text' name="sleeves" id="fsleeves" placeholder="Sleeves in cm" value="" required></p>
         <p> <lable for="pa-size">Chest: &nbsp &nbsp&nbsp</lable>
         <input type='text' name="chest" id="fchest" placeholder="Chest in cm" value="" required></p>
+
+
         <p> <lable for="pa-size">Quantity: </lable>
         <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="decrement()">-</button>
         <input type='number' style='width: 10%; text-align: center; border-radius:10%;' name="quantity" id="fquantity" value="1" min="1" required>
         <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="increment()">+</button></p>
 
       {% endif %}
+       
       &nbsp <br>
 
-      <button type="button" onclick="GetSelectedSize()">Get Customize Size</button>       
+      <button type="button" onclick="GetSelectedSize()">Get Customize Size</button>
+       
+      
+            
 
       <br>
       <div class="buttons">
@@ -271,9 +277,18 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       </script>
 
     {% endblock %}
+
+
+  <script>
+    function myFunction(price, quantity, t_amt_place) {
+        var x = +price * +quantity;
+        document.getElementById(t_amt_place).innerHTML = x;
+    }
+  </script>
+
   {% endif %}
 
-  <!-- footer>
+ <!--  <footer>
     <br><br>
     <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
   </footer> -->

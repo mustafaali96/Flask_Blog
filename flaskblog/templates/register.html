@@ -218,6 +218,15 @@ $("#user_type").change(function(){
 		   }
 		
 		  });
+$("#user_type").change(function(){
+		     var type = this.value;
+		   if(type=="2"){
+		     $("#hideValuesOnSelect").hide();// hide multiple sections
+		     $("#shop").hide();
+		     $("#skills").hide();
+		   }
+		   
+		  });
 		
 		
 		

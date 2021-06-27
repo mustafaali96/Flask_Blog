@@ -14,7 +14,7 @@ class UserRegistrationForm(FlaskForm):
 	number = StringField('Contact Number', validators=[DataRequired(), Length(min=2, max=20)])
 	address = StringField('Address', validators=[DataRequired(), Length(min=2, max=20)])
 	password = PasswordField('Password', validators=[DataRequired()])
-	user_type = SelectField(u'User Type', choices=[('0', 'Customer'), ('1', 'Tailor')])
+	user_type = SelectField(u'User Type', choices=[('0', 'Customer'), ('1', 'Tailor'),('', 'Organisation')])
 	embroidery = BooleanField('Embroidery')
 	partywear = BooleanField('Party Wear')
 	dailywear = BooleanField('Daily Wear')

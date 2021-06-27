@@ -62,11 +62,15 @@ def login():
                     flash('Login Successful!!', 'success')
                     return redirect(url_for('dashboard'))
 
+                elif user.user_type == 2:
+                    flash('Login Successful!!', 'success')
+                    return redirect(url_for('customer_dashboard'))
+
                 else:
                     flash('Login Unsuccessful, Please check your username and password', 'danger')
             else:
                 flash('Login Unsuccessful, Password did not matched', 'danger')
-
+                
         else:
             flash('User not exist, Please check your username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -284,7 +288,7 @@ def collection_detail(collection_id):
             flash('Please login yourself first!', 'success')
             return redirect(url_for('login'))
 
-    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
+    return render_template('collectioninfo.html', title='Details', orders=orders, collection=collection, form=form, sizes=sizes)
 
 
 @app.route('/<collection_id>/', methods=['GET','POST'])
@@ -354,6 +358,15 @@ def filter_collection(filter_type):
         filters = { filter_type : True }
         filter_collection = Collection.query.filter_by(**filters)
     return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
+
+#sortbylatest
+@app.route('/filter/<order_by>/', methods=['GET','POST'])
+def order_collection(order_by):
+    if request.method == 'GET':
+        filters = { order_by : True }
+        # order_collection = Collection.query.order_by(desc(collection.title))
+        order_collection = Collection.query.order_by(Collection.title).all()
+    return render_template('filtercollection.html', title='Details', order_collection=order_collection)
 
 
 @app.route('/filterTailor/<filter_user>/', methods=['GET','POST'])
