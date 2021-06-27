@@ -288,7 +288,7 @@ def collection_detail(collection_id):
             flash('Please login yourself first!', 'success')
             return redirect(url_for('login'))
 
-    return render_template('collectioninfo.html', title='Details', orders=orders, collection=collection, form=form, sizes=sizes)
+    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
 
 
 @app.route('/<collection_id>/', methods=['GET','POST'])
