@@ -54,17 +54,13 @@ def login():
             if user.password==form.password.data and user.username==form.username.data:
                 user.is_authenticated = True                   #for login session
                 login_user(user)
-                if user.user_type == 0:
+                if user.user_type == 0 or user.user_type == 2:
                     flash('Login Successful!!', 'success')
                     return redirect(url_for('customer_dashboard'))    #customer dashboad
 
                 elif user.user_type == 1:
                     flash('Login Successful!!', 'success')
                     return redirect(url_for('dashboard'))
-
-                elif user.user_type == 2:
-                    flash('Login Successful!!', 'success')
-                    return redirect(url_for('customer_dashboard'))
 
                 else:
                     flash('Login Unsuccessful, Please check your username and password', 'danger')
@@ -89,6 +85,9 @@ def dashboard():
                     collectionIDs.append(collection.id)
                 orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
                 all_orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs)).all()
+            else:
+                flash('Login Unsuccessful, Please login with Tailor account', 'danger')
+                return redirect(url_for('login'))
 
     return render_template('dashboard.html', title='dashboard', orders_count=len(orders_count), all_orders_count=len(all_orders_count))
 
@@ -217,7 +216,7 @@ def order():
                 for collection in collections:
                     collectionIDs.append(collection.id)
                 orders = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
-            elif current_user.user_type == 0:
+            elif current_user.user_type == 0 or current_user.user_type == 2:
                 orders = Order.query.filter(Order.customer_id==current_user.id).all()
             else:
                 return redirect(url_for('login'))
@@ -231,7 +230,7 @@ def order():
                 Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_confirmed = True))
                 db.session.commit()
                 return redirect(url_for('order'))
-            elif current_user.user_type == 0:
+            elif current_user.user_type == 0 or current_user.user_type == 2:
                 order_id = request.form.get('delete_order')
                 Order.query.filter(Order.id == int(order_id)).delete()
                 db.session.commit()
@@ -321,7 +320,6 @@ def AddCustomSize():
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
-            print(name, relation, category, Length,width,Sleeves)
             customSize = CustomSize(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
             db.session.add(customSize)
             db.session.commit()
@@ -372,8 +370,6 @@ def order_collection(order_by):
 @app.route('/filterTailor/<filter_user>/', methods=['GET','POST'])
 def filter_tailor(filter_user):
     if request.method == 'GET':
-        print(filter_user)
-        # filters = { filter_type : True }
         filter_collection = Collection.query.filter(Collection.user_id==filter_user).all()
     return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
 
