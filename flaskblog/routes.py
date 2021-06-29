@@ -83,7 +83,7 @@ def dashboard():
                 collectionIDs = []
                 for collection in collections:
                     collectionIDs.append(collection.id)
-                orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
+                orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False, Order.Is_Order_rejected==False).all()
                 all_orders_count = Order.query.filter(Order.collection_id.in_(collectionIDs)).all()
             else:
                 flash('Login Unsuccessful, Please login with Tailor account', 'danger')
@@ -215,7 +215,7 @@ def order():
                 collectionIDs = []
                 for collection in collections:
                     collectionIDs.append(collection.id)
-                orders = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False).all()
+                orders = Order.query.filter(Order.collection_id.in_(collectionIDs), Order.Is_Order_confirmed==False, Order.Is_Order_rejected==False).all()
             elif current_user.user_type == 0 or current_user.user_type == 2:
                 orders = Order.query.filter(Order.customer_id==current_user.id).all()
             else:
@@ -226,8 +226,12 @@ def order():
     if request.method == 'POST':
         if current_user.is_authenticated:
             if current_user.user_type == 1:
-                order_id = request.form.get('confirm_order')
-                Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_confirmed = True))
+                try:
+                    order_id = request.form.get('confirm_order')
+                    Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_confirmed = True))
+                except:
+                    order_id = request.form.get('reject_order')
+                    Order.query.filter_by(id=int(order_id)).update(dict(Is_Order_rejected = True))
                 db.session.commit()
                 return redirect(url_for('order'))
             elif current_user.user_type == 0 or current_user.user_type == 2:
