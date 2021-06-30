@@ -29,7 +29,7 @@ def load_user(user_id):
 @app.route("/")
 def home():
     if current_user.is_authenticated:
-        if current_user.user_type == 0:
+        if current_user.user_type == 0 or current_user.user_type == 2:
             return redirect(url_for('customer_dashboard'))
         elif current_user.user_type == 1:
             return redirect(url_for('dashboard'))
@@ -274,19 +274,29 @@ def collection_detail(collection_id):
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
         if current_user.is_authenticated:
-            Length = request.form["length"]
-            width = request.form["width"]
-            Shoulder = request.form["shoulder"]
-            Armhole = request.form["armhole"]
-            Sleeves = request.form["sleeves"]
-            Chest = request.form["chest"]
-            quantity = request.form["quantity"]
+            if current_user.user_type == 0 or current_user.user_type == 1:
+                Length = request.form["length"]
+                width = request.form["width"]
+                Shoulder = request.form["shoulder"]
+                Armhole = request.form["armhole"]
+                Sleeves = request.form["sleeves"]
+                Chest = request.form["chest"]
+                quantity = request.form["quantity"]
 
-            order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
-            db.session.add(order)
-            db.session.commit()
-            flash('Your product has been updated!', 'success')
-            return redirect(url_for('collections'))
+                order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
+                db.session.add(order)
+                db.session.commit()
+                flash('Your product has been updated!', 'success')
+                return redirect(url_for('collections'))
+            else:
+                customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
+                for customsize in customsizes:
+                    print(customsize)
+                    order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest)
+                    db.session.add(order)
+                    db.session.commit()
+                flash('Your bulk order has been placed!', 'success')
+                return redirect(url_for('collections'))
         else:
             flash('Please login yourself first!', 'success')
             return redirect(url_for('login'))

@@ -41,7 +41,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- <p>Women's Running Shoe</p> -->
     <h1>{{ collection.title }}</h1>
     <h2>Rs {{ collection.price }}</h2>
-    {% if not current_user.user_type == 1 %}
+    {% if current_user.user_type == 0 %}
       <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
@@ -63,7 +63,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         
     <br> 
   </div>
-  {% if not current_user.user_type == 1 %}
+  {% if current_user.user_type == 0 %}
     <form method="post">
       {{ form.hidden_tag() }}
       {% if collection.category == 1 %}
@@ -105,7 +105,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <button type="button" onclick="GetSelectedSize()">Get Customize Size</button>
        
       
-            
 
       <br>
       <div class="buttons">
@@ -285,6 +284,11 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         document.getElementById(t_amt_place).innerHTML = x;
     }
   </script>
+
+  {% elif current_user.user_type == 2 %}
+    <div class="buttons">
+      <button type="submit">Bulk Order</button>
+    </div> 
 
   {% endif %}
 
