@@ -75,8 +75,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                         <i class="fas fa-check-circle"></i> 
                     </button>
                   </form>
+                  <form method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input  type='hidden' name='reject_order' value='{{collection.id}}'>
+                    <button class="btn btn-primary" type="submit" value='Reject Order'>
+                        <i class="fas fa-check-circle"></i> 
+                    </button>
+                  </form>
                 {% else %}
-                  {% if collection.Is_Order_confirmed == 0 %}
+                  {% if collection.Is_Order_confirmed == 0 and collection.Is_Order_rejected == 0 %}
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Pending</p>
                     <form method="post">
                       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -84,9 +91,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                       <button class="btn btn-danger" type="submit">
                       <i class="far fa-trash-alt"></i>
                       </button>
-                      
-
                     </form>
+                  {% elif collection.Is_Order_rejected == 1 %}
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Rejected</p> 
                   {% else %} 
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p> 
                   {% endif %}

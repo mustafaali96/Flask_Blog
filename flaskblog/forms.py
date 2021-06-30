@@ -14,7 +14,7 @@ class UserRegistrationForm(FlaskForm):
 	number = StringField('Contact Number', validators=[DataRequired(), Length(min=2, max=20)])
 	address = StringField('Address', validators=[DataRequired(), Length(min=2, max=20)])
 	password = PasswordField('Password', validators=[DataRequired()])
-	user_type = SelectField(u'User Type', choices=[('0', 'Customer'), ('1', 'Tailor'),('', 'Organisation')])
+	user_type = SelectField(u'User Type', choices=[('0', 'Customer'), ('1', 'Tailor'),('2', 'Organisation')])
 	embroidery = BooleanField('Embroidery')
 	partywear = BooleanField('Party Wear')
 	dailywear = BooleanField('Daily Wear')
@@ -28,14 +28,6 @@ class LoginForm(FlaskForm):
 	remember = BooleanField('Remeber Me')
 	submit = SubmitField('Login')
 	
-
-class CustomerLoginForm(FlaskForm):
-	username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-	password = PasswordField('Password',validators=[DataRequired()])
-	remember = BooleanField('Remeber Me')
-	submit = SubmitField('Login')
-
-
 
 class UpdateTailorAccountForm(FlaskForm):
 	firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])

@@ -126,6 +126,7 @@ class Order(db.Model):
 	Sleeves = db.Column(db.Float, nullable=True, default = 0)
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	Is_Order_confirmed = db.Column(db.Boolean, default = False)
+	Is_Order_rejected = db.Column(db.Boolean, default = False)
 	order_created_at = db.Column(db.DateTime, default=datetime.now().strftime("%B%d,%Y %I:%M%p"))
 
 	def __repr__(self):
