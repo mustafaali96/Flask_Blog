@@ -78,8 +78,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <form method="post">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <input  type='hidden' name='reject_order' value='{{collection.id}}'>
-                    <button class="btn btn-primary" type="submit" value='Reject Order'>
-                        <i class="fas fa-check-circle"></i> 
+                    <button class="btn btn-danger" type="submit" value='Reject Order'>
+                        <i class="fas fa-times-circle"></i> 
                     </button>
                   </form>
                 {% else %}
@@ -97,7 +97,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   {% else %} 
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p> 
                   {% endif %}
-                 {% endif %}
+                {% endif %}
              </div>
           </div>
        <!-- </div> -->

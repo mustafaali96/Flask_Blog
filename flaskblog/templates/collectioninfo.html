@@ -55,6 +55,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         </select>
         <div class="quantity "></div>
       
+    {% elif current_user.user_type == 2 %}
+      <br>
+      <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
+      <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
     {% else %}
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
@@ -278,17 +282,18 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% endblock %}
 
 
-  <script>
-    function myFunction(price, quantity, t_amt_place) {
-        var x = +price * +quantity;
-        document.getElementById(t_amt_place).innerHTML = x;
-    }
-  </script>
+    <script>
+      function myFunction(price, quantity, t_amt_place) {
+          var x = +price * +quantity;
+          document.getElementById(t_amt_place).innerHTML = x;
+      }
+    </script>
 
   {% elif current_user.user_type == 2 %}
-    <div class="buttons">
-      <button type="submit">Bulk Order</button>
-    </div> 
+    <form method="post"> 
+      {{ form.hidden_tag() }}
+      <button class="btn btn-primary" type="submit" value="{{collection.id}}">Bulk Order</button>
+    </form>
 
   {% endif %}
 
