@@ -106,7 +106,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
        
       &nbsp <br>
 
-      <button type="button" onclick="GetSelectedSize()">Get Customize Size</button>
+      <button type="button" onclick="GetSelectedSize()">Get Sizes</button>
+      
+      
        
       
 
@@ -216,7 +218,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         
       </div>
     </div>
-
+<div class="border-top pt-3">
+    <small class="text-muted">
+    Do You Want To Customize Your Size According To Your Choice?
+    <a class="ml-2" href="{{url_for('AddCustomSize')}}"> Get Customize Size</a>
+    </small>
+  
+  </div>
     {% block javascripts %}
       <script>
 
@@ -292,7 +300,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   {% elif current_user.user_type == 2 %}
     <form method="post"> 
       {{ form.hidden_tag() }}
-      <button class="btn btn-primary" type="submit" value="{{collection.id}}">Bulk Order</button>
+      <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
     </form>
 
   {% endif %}
