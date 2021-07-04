@@ -1,0 +1,140 @@
+{% extends "layout.html"%}
+{% block style %}
+<link rel="stylesheet"
+href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+	#hijab {
+	   display: none;
+	}
+ </style>
+{% endblock style %}
+{% block title %} Add Product {% endblock title %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style type="text/css">
+	#search {
+		display: none!important;
+	}
+	.nav-top-wthree {
+    margin: 1em 0;
+    display: none;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+	<div class="content-section"> 
+		<div class="row col-md-12">
+			</div>
+			<div class="col-md-8">
+				<div class=" row col-md-8 offset-md-2" >
+					<form method="POST">
+					{{ form.hidden_tag() }}
+						<fieldset class="row form-group">
+							<legend class="border-bottom mb-4"> Add Custom Size </legend>
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<lable class="form-control-label" for="name">Name</lable>
+									<input class="form-control" type='text' name="name" id="name" placeholder="Name" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<lable class="form-control-label" for="relation">Relation</lable>
+									<input class="form-control" type='text' name="relation" id="relation" placeholder="e.g: Sister" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<lable class="form-control-label" for="category">Category</lable>
+									<select class="form-control input-type" id="category" name='category'>
+										  <option value="0">Abaya</option>
+										  <option value="1">Hijab</option>
+									  </select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<lable class="form-control-label" for="Length">Length</lable>
+									<input class="form-control" type='number' step="any" id="Length" name='Length' value="0" min="0">
+								</div>
+							</div>
+							<div class="col-md-6" id="hijab">
+								<div class="form-group">
+									<lable class="form-control-label" for="width">Width</lable>
+									<input class="form-control" type='number' step="any" name="width" id="width" value="0" min="0">									
+								</div>
+							</div>
+							<div class="col-md-6" id="shoulder">
+								<div class="form-group">
+									<lable class="form-control-label" for="Shoulder">Shoulder</lable>
+									<input class="form-control" type='number' step="any" name="Shoulder" id="Shoulder" value="0" min="0">
+								</div>
+							</div>
+							<div class="col-md-6" id="armhole">
+								<div class="form-group">
+									<lable class="form-control-label" for="Armhole">Armhole</lable>
+									<input class="form-control" type='number' step="any" name="Armhole" id="Armhole" value="0" min="0">
+								</div>
+							</div>
+							<div class="col-md-6" id="sleeves">
+								<div class="form-group">
+									<lable class="form-control-label" for="Sleeves">Sleeves</lable>
+									<input class="form-control" type='number' step="any" name="Sleeves" id="Sleeves" value="0" min="0">
+								</div>
+							</div>
+							<div class="col-md-6" id="chest">
+								<div class="form-group">
+									<lable class="form-control-label" for="Chest">Chest</lable>
+									<input class="form-control" type='number' step="any" name="Chest" id="Chest" value="0" min="0">
+								</div>
+							</div>
+						</fieldset>
+						<div class="buttons">
+							<button type="submit">Add Size</button>
+						</div> 
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% block javascripts %}
+	<script type="text/javascript">
+		window.onload = function() {
+		   document.getElementById('hijab').style.display = 'none';
+		};
+		$("#category").change(function(){
+		     var type = this.value;
+		   if(type=="0"){
+		     $("#hijab").hide();
+			 $("#shoulder").show();
+			 $("#armhole").show();
+			 $("#sleeves").show();
+			 $("#chest").show();
+		   }
+		   
+		  });
+		$("#category").change(function(){
+		     var type = this.value;
+		   if(type=="1"){
+		     $("#hijab").show();
+			 $("#shoulder").hide();
+			 $("#armhole").hide();
+			 $("#sleeves").hide();
+			 $("#chest").hide();
+		   }
+		
+		  });
+		
+		
+	</script>
+	{% endblock javascripts %}
+{% endblock content %}
+
+
+

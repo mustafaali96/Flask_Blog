@@ -289,16 +289,20 @@ def collection_detail(collection_id):
                 flash('Your product has been updated!', 'success')
                 return redirect(url_for('collections'))
             else:
-                customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
-                for customsize in customsizes:
-                    print(customsize)
-                    order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest)
-                    db.session.add(order)
-                    db.session.commit()
-                flash('Your bulk order has been placed!', 'success')
-                return redirect(url_for('collections'))
+                # collection = Collection.query.filter(Collection.id==collection_id)[0]
+                customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
+                try:
+                    for customsize in customsizes:
+                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest)
+                        db.session.add(order)
+                        db.session.commit()
+                    flash('Your bulk order has been placed!', 'success')
+                    return redirect(url_for('collections'))
+                except:
+                    flash('No size found for bulk order!', 'danger')
+                    return redirect(url_for('collections'))
         else:
-            flash('Please login yourself first!', 'success')
+            flash('Please login yourself first!', 'danger')
             return redirect(url_for('login'))
 
     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
@@ -317,6 +321,22 @@ def guest_collection_detail(collection_id):
 
     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
  
+
+@app.route("/size/", methods=['GET','POST'])
+def CustomerCustomSize():
+    if request.method == 'GET':
+        customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
+    if request.method == 'POST':
+        if current_user.is_authenticated:
+            customsize_id = request.form.get('customsize')
+            CustomSize.query.filter_by(id=int(customsize_id)).delete()
+            db.session.commit()
+            return redirect(url_for('CustomerCustomSize'))
+        else:
+            flash('Please login yourself first!', 'danger')
+            return redirect(url_for('login'))
+
+    return render_template('size.html', title='Details', customsizes=customsizes)
 
 @app.route("/size/add/", methods=['GET','POST'])
 def AddCustomSize():
@@ -338,30 +358,48 @@ def AddCustomSize():
             db.session.add(customSize)
             db.session.commit()
             flash('Your size has been added!', 'success')
-            return redirect(url_for('customer_dashboard'))
+            return redirect(url_for('CustomerCustomSize'))
         else:
-            flash('Please login yourself first!', 'success')
+            flash('Please login yourself first!', 'danger')
             return redirect(url_for('login'))
     return render_template('addsize.html', title='My Size', form=form)
 
+@app.route("/size/<customsize_id>/", methods=['GET','POST'])
+def EditCustomSize(customsize_id):
+    form = CustomSizeForm()
+    if request.method == 'GET':
+        customsize = CustomSize.query.filter(CustomSize.id==customsize_id)[0]
+        form.name.data = customsize.name
+        form.relation.data = customsize.relation
+        form.category.data = customsize.category
+        form.Length.data = customsize.Length
+        form.width.data = customsize.width
+        form.Shoulder.data = customsize.Shoulder
+        form.Armhole.data = customsize.Armhole
+        form.Sleeves.data = customsize.Sleeves
+        form.Chest.data = customsize.Chest
 
- #for hijab and abaya stuff according to users choice 
-# @app.route('/<collection_id>/', methods=['GET','POST'])
-# def guest_collection_detail(collection_id):
-#     # form = OrderForm()
-#     color = Color.query.filter(Collection.id==collection_id)[0]
-#     color = Color.query.filter(Color.category==Color.category).all()
-#     if request.method == 'GET':
-#         # print(current_user.id)
-#         color = color.query.filter(Collection.id==collection_id)[0]
-#     if request.method == 'POST':
-#         return redirect(url_for('register')) 
+    if request.method == 'POST':
+        if current_user.is_authenticated:
+            name = request.form["name"]
+            relation = request.form["relation"]
+            category = request.form["category"]
+            Length = request.form["Length"]
+            width = request.form["width"]
+            Shoulder = request.form["Shoulder"]
+            Armhole = request.form["Armhole"]
+            Sleeves = request.form["Sleeves"]
+            Chest = request.form["Chest"]
+            customSize = CustomSize(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
+            db.session.add(customSize)
+            db.session.commit()
+            flash('Your size has been added!', 'success')
+            return redirect(url_for('CustomerCustomSize'))
+        else:
+            flash('Please login yourself first!', 'danger')
+            return redirect(url_for('login'))
 
-#     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
-
-
-
-
+    return render_template('editsize.html', title='Edit Size', form=form)
 
 
 @app.route('/filter/<filter_type>/', methods=['GET','POST'])
