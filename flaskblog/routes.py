@@ -367,8 +367,8 @@ def AddCustomSize():
 @app.route("/size/<customsize_id>/", methods=['GET','POST'])
 def EditCustomSize(customsize_id):
     form = CustomSizeForm()
+    customsize = CustomSize.query.filter(CustomSize.id==customsize_id)[0]
     if request.method == 'GET':
-        customsize = CustomSize.query.filter(CustomSize.id==customsize_id)[0]
         form.name.data = customsize.name
         form.relation.data = customsize.relation
         form.category.data = customsize.category
@@ -383,23 +383,21 @@ def EditCustomSize(customsize_id):
         if current_user.is_authenticated:
             name = request.form["name"]
             relation = request.form["relation"]
-            category = request.form["category"]
             Length = request.form["Length"]
             width = request.form["width"]
             Shoulder = request.form["Shoulder"]
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
-            customSize = CustomSize(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
-            db.session.add(customSize)
+            CustomSize.query.filter_by(id=int(customsize_id)).update(dict(name=name, relation=relation, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest))
             db.session.commit()
-            flash('Your size has been added!', 'success')
+            flash('Your size has been updated!', 'success')
             return redirect(url_for('CustomerCustomSize'))
         else:
             flash('Please login yourself first!', 'danger')
             return redirect(url_for('login'))
 
-    return render_template('editsize.html', title='Edit Size', form=form)
+    return render_template('editsize.html', title='Edit Size', form=form, customsize=customsize)
 
 
 @app.route('/filter/<filter_type>/', methods=['GET','POST'])
