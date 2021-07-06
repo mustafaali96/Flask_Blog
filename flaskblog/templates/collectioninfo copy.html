@@ -46,19 +46,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
       <div class="name">
-        <lable class="form-control-label" for="mysize">Size: </lable>
-        <select id="mysize" name="mysize">
+        <p> <lable for="pa-size"> Size: </lable></p>
+        
+        <select id="mysize">
           {% for collectionsize in sizes %}
             <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
           {% endfor %}
         </select>
-
-        <lable class="form-control-label" for="customsize">My Sizes: </lable>
-        <select id="customsize">
-          {% for customsize in my_customsize %}
-            <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
-          {% endfor %}
-        </select>
+        <div class="quantity "></div>
       
     {% elif current_user.user_type == 2 %}
       <br>
@@ -111,7 +106,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
        
       &nbsp <br>
 
-      <!-- <button type="button" onclick="GetSelectedSize()">Get Sizes</button> -->
+      <button type="button" onclick="GetSelectedSize()">Get Sizes</button>
       
       
        
@@ -233,49 +228,29 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% block javascripts %}
       <script>
 
-        $("#mysize").change(function(){
-		      var e = document.getElementById("mysize");
-          var size_label = e.options[e.selectedIndex].text;
-          var size_values = e.options[e.selectedIndex].value.split(",");
-          for (var i = 0; i < size_values.length; i++)
-            if (size_values[i] == 'None')
-              size_values[i] = 0;
-          var length = size_values[0];
-          var width = size_values[1];
-          var shoulder = size_values[2];
-          var armhole = size_values[3];
-          var sleeves = size_values[4];
-          var chest = size_values[5];
-          document.getElementById("flength").setAttribute('value',length);
-          document.getElementById("fwidth").setAttribute('value',width);
-          document.getElementById("fshoulder").setAttribute('value',shoulder);
-          document.getElementById("farmhole").setAttribute('value',armhole);
-          document.getElementById("fsleeves").setAttribute('value',sleeves);
-          document.getElementById("fchest").setAttribute('value',chest);
-      
-		  });
-
-      $("#customsize").change(function(){
-		      var e = document.getElementById("customsize");
-          var size_label = e.options[e.selectedIndex].text;
-          var size_values = e.options[e.selectedIndex].value.split(",");
-          for (var i = 0; i < size_values.length; i++)
-            if (size_values[i] == 'None')
-              size_values[i] = 0;
-          var length = size_values[0];
-          var width = size_values[1];
-          var shoulder = size_values[2];
-          var armhole = size_values[3];
-          var sleeves = size_values[4];
-          var chest = size_values[5];
-          document.getElementById("flength").setAttribute('value',length);
-          document.getElementById("fwidth").setAttribute('value',width);
-          document.getElementById("fshoulder").setAttribute('value',shoulder);
-          document.getElementById("farmhole").setAttribute('value',armhole);
-          document.getElementById("fsleeves").setAttribute('value',sleeves);
-          document.getElementById("fchest").setAttribute('value',chest);
-      
-		  });
+        function GetSelectedSize(){
+            var e = document.getElementById("mysize");
+            var size_label = e.options[e.selectedIndex].text;
+            var size_values = e.options[e.selectedIndex].value.split(",");
+            for (var i = 0; i < size_values.length; i++)
+              if (size_values[i] == 'None')
+                size_values[i] = 0;
+            var length = size_values[0];
+            var width = size_values[1];
+            var shoulder = size_values[2];
+            var armhole = size_values[3];
+            var sleeves = size_values[4];
+            var chest = size_values[5];
+            
+            
+            
+            document.getElementById("flength").setAttribute('value',length);
+            document.getElementById("fwidth").setAttribute('value',width);
+            document.getElementById("fshoulder").setAttribute('value',shoulder);
+            document.getElementById("farmhole").setAttribute('value',armhole);
+            document.getElementById("fsleeves").setAttribute('value',sleeves);
+            document.getElementById("fchest").setAttribute('value',chest);
+        }
 
         // Quantity increment
         function increment() {

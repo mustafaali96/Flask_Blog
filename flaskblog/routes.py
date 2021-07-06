@@ -269,12 +269,12 @@ def collection_detail(collection_id):
     if request.method == 'GET':
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
-        my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
+        my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
 
     if request.method == 'POST':
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
-        my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
+        my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
         if current_user.is_authenticated:
             if current_user.user_type == 0 or current_user.user_type == 1:
                 Length = request.form["length"]
