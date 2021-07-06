@@ -291,15 +291,20 @@ def collection_detail(collection_id):
             else:
                 # collection = Collection.query.filter(Collection.id==collection_id)[0]
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
-                try:
+                print("*************")
+                print(len(customsizes))
+                if len(customsizes) >= 1:
                     for customsize in customsizes:
                         order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest)
                         db.session.add(order)
                         db.session.commit()
                     flash('Your bulk order has been placed!', 'success')
                     return redirect(url_for('collections'))
-                except:
-                    flash('No size found for bulk order!', 'danger')
+                else:
+                    if collection.category == 0:
+                        flash('No Abaya size found for bulk order!', 'danger')
+                    else:
+                        flash('No Hijab size found for bulk order!', 'danger')
                     return redirect(url_for('collections'))
         else:
             flash('Please login yourself first!', 'danger')
