@@ -269,10 +269,12 @@ def collection_detail(collection_id):
     if request.method == 'GET':
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
+        my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
 
     if request.method == 'POST':
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
+        my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id).all()
         if current_user.is_authenticated:
             if current_user.user_type == 0 or current_user.user_type == 1:
                 Length = request.form["length"]
@@ -282,17 +284,14 @@ def collection_detail(collection_id):
                 Sleeves = request.form["sleeves"]
                 Chest = request.form["chest"]
                 quantity = request.form["quantity"]
-
                 order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
                 db.session.add(order)
                 db.session.commit()
-                flash('Your product has been updated!', 'success')
+                flash('Your order has been placed!', 'success')
                 return redirect(url_for('collections'))
+            
             else:
-                # collection = Collection.query.filter(Collection.id==collection_id)[0]
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
-                print("*************")
-                print(len(customsizes))
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
                         order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest)
@@ -310,7 +309,7 @@ def collection_detail(collection_id):
             flash('Please login yourself first!', 'danger')
             return redirect(url_for('login'))
 
-    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
+    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes, my_customsize=my_customsize)
 
 
 @app.route('/<collection_id>/', methods=['GET','POST'])
