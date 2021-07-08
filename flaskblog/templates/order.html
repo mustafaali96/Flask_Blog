@@ -83,7 +83,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                     </button>
                   </form>
                 {% else %}
-                  {% if collection.Is_Order_confirmed == 0 and collection.Is_Order_rejected == 0 %}
+                  {% if collection.Is_Order_confirmed == 0 and collection.Is_Order_rejected == 0 % }
+                <!--   and collection.Is_Order_normal == 0 and collection.Is_Order_urgent == 0 %} -->
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Pending</p>
                     <form method="post">
                       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -97,6 +98,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   {% else %} 
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p> 
                   {% endif %}
+
                 {% endif %}
              </div>
           </div>
