@@ -52,7 +52,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
           {% endfor %}
         </select>
-<br><br>
+        <br><br>
 
         <lable class="form-control-label" for="customsize">
         Measurements: </lable>
@@ -67,10 +67,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
 
-   
       <div class="name">
-      
-
         <lable class="form-control-label" for="customsize">
         Measurements: </lable>
         <select id="customsize"  class="dropdown-check-list" tabindex="100">
@@ -78,14 +75,21 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
           {% endfor %}
         </select>
+      </div>
     {% else %}
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+      <lable class="form-control-label" for="mysize">Size: </lable>
+      <select id="mysize" name="mysize">
+        {% for collectionsize in sizes %}
+          <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
+        {% endfor %}
+      </select>
 
     {% endif %}
         
     <br> 
-  </div>
+  
   <br>
   {% if current_user.user_type == 0 %}
     <form method="post">
@@ -118,7 +122,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <p> <lable for="pa-size">Chest: &nbsp &nbsp&nbsp</lable>
         <input type='text' name="chest" id="fchest" placeholder="Chest in cm" value="" required></p>
 
-<br>
+        <br>
         <p> <lable for="pa-size">Quantity: </lable>
         <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="decrement()">-</button>
         <input type='number' style='width: 10%; text-align: center; border-radius:10%;' name="quantity" id="fquantity" value="1" min="1" required>
@@ -240,13 +244,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         
       </div>
     </div>
-<div class="border-top pt-3">
-    <small class="text-muted">
-    Do You Want To Customize Your Size According To Your Choice?
-    <a class="ml-2" href="{{url_for('AddCustomSize')}}"> Get Customize Size</a>
-    </small>
-  
-  </div>
+    <div class="border-top pt-3">
+      <small class="text-muted">
+      Do You Want To Customize Your Size According To Your Choice?
+      <a class="ml-2" href="{{url_for('AddCustomSize')}}"> Get Customize Size</a>
+      </small>
+    </div>
     {% block javascripts %}
       <script>
 
@@ -346,6 +349,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       {{ form.hidden_tag() }}
       <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
     </form>
+  
+  {% elif current_user.user_type == 1 %}
+
+  {% else %} 
+  <form method="post"> 
+    {{ form.hidden_tag() }}
+    <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
+  </form>
 
   {% endif %}
 <!--  <footer>
