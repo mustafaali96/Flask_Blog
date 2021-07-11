@@ -59,9 +59,39 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <select id="customsize">
           {% for customsize in my_customsize %}
             <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
+
           {% endfor %}
+
+             
         </select>
-      
+<br>
+<br>
+        <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
+        <div> 
+            <p>  <input type="radio" id="normal" name="fav_language" value="Normal" >
+      <label for="normal">Normal (10 Days)</label>
+      &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp 
+      <input type="radio" id="urgent" name="fav_language" value="Urgent">
+      <label for="urgent">Urgent (3 Days)</label>
+    </p>
+    </div>
+     <!--  <form method="GET"> -->
+                    <!-- <input type="radio" name="fav_language" value="Normal"/>
+                    <input  type='radio' name='fav_language' value='{{collection.id}}'> -->
+                    <!-- <button class="btn btn-primary" type="submit" value='normal Order'>
+                        <i class="fas fa-check-circle"></i> 
+                    </button> -->
+                 
+      {% if collection.normal == 1 %}
+                <!--   and collection.Is_Order_normal == 0 and collection.Is_Order_urgent == 0 %} -->
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: Deliver in 10 days</p>
+
+                    <!-- {% elif collection.normal == 1 %}
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>{{ collection.normal }}</p> 
+ -->
+                  {% else %} 
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Deliver in 3 days</p> 
+                  {% endif %}
     {% elif current_user.user_type == 2 %}
       <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
@@ -73,24 +103,51 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <select id="customsize"  class="dropdown-check-list" tabindex="100">
           {% for customsize in my_customsize %}
             <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
+         
+
+      
+      
           {% endfor %}
+
         </select>
-      </div>
+           <br>
+<br>
+        <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
+        <div> 
+            <p>  <input type="radio" id="normal" name="fav_language" value="Normal" >
+      <label for="normal">Normal (10 Days)</label>
+      &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp 
+      <input type="radio" id="urgent" name="fav_language" value="Urgent">
+      <label for="urgent">Urgent (3 Days)</label>
+    </p>
+    </div>
     {% else %}
-      <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p>
+      <!-- <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p> -->
+            <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+
       <lable class="form-control-label" for="mysize">Size: </lable>
       <select id="mysize" name="mysize">
         {% for collectionsize in sizes %}
           <option value="{{ collectionsize.Length }},{{ collectionsize.width }},{{ collectionsize.Shoulder }},{{ collectionsize.Armhole }},{{ collectionsize.Sleeves }},{{ collectionsize.Chest }}">{{ collectionsize.title }}</option>
         {% endfor %}
       </select>
-
+        <br>
+<br>
+        <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
+        <div> 
+            <p>  <input type="radio" id="normal" name="fav_language" value="Normal" >
+      <label for="normal">Normal (10 Days)</label>
+      &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp 
+      <input type="radio" id="urgent" name="fav_language" value="Urgent">
+      <label for="urgent">Urgent (3 Days)</label>
+    </p>
+    </div>
     {% endif %}
         
     <br> 
   
-  <br>
+
   {% if current_user.user_type == 0 %}
     <form method="post">
       {{ form.hidden_tag() }}
@@ -133,9 +190,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       &nbsp <br>
 
       <!-- <button type="button" onclick="GetSelectedSize()">Get Sizes</button> -->
-      
-      
-       
       
 
       <br>

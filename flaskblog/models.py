@@ -63,6 +63,8 @@ class Collection(db.Model):
 	# tname = db.Column(db.String(20), db.ForeignKey('User.username'),nullable=False )
 
 	price = db.Column(db.String(20), nullable=False )
+	# stitch_price = db.Column(db.String(20), nullable=False )
+	# dress_price = db.Column(db.String(20), nullable=False )
 	title = db.Column(db.String(20), nullable=False )
 	is_embroidery = db.Column(db.Integer, default=0)   
 	is_partywear = db.Column(db.Integer, default=0)
@@ -127,8 +129,8 @@ class Order(db.Model):
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	Is_Order_confirmed = db.Column(db.Boolean, default = False)
 	Is_Order_rejected = db.Column(db.Boolean, default = False)
-	# Is_Order_normal = db.Column(db.Boolean, default = False)
-	# Is_Order_urgent = db.Column(db.Boolean, default = False)
+	normal = db.Column(db.Boolean, default = False)
+	urgent = db.Column(db.Boolean, default = False)
 
 	order_created_at = db.Column(db.DateTime, default=datetime.now().strftime("%B%d,%Y %I:%M%p"))
 

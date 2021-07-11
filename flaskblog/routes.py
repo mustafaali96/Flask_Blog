@@ -284,13 +284,15 @@ def collection_detail(collection_id):
                 Sleeves = request.form["sleeves"]
                 Chest = request.form["chest"]
                 quantity = request.form["quantity"]
+            
                 order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
                 db.session.add(order)
                 db.session.commit()
                 flash('Your order has been placed!', 'success')
                 return redirect(url_for('collections'))
-            
+             
             else:
+               
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
@@ -411,15 +413,74 @@ def filter_collection(filter_type):
         filter_collection = Collection.query.filter_by(**filters)
     return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
 
-#sortbylatest
-@app.route('/filter/<order_by>/', methods=['GET','POST'])
-def order_collection(order_by):
+#filterthedataaccordingtonames,quantity,price,ontailor'sallorder
+@app.route('/dashboard/allOrders/<field>/<value>/', methods=['GET','POST'])
+def order_collection(field,value):
     if request.method == 'GET':
-        filters = { order_by : True }
-        # order_collection = Collection.query.order_by(desc(collection.title))
-        order_collection = Collection.query.order_by(Collection.title).all()
-    return render_template('filtercollection.html', title='Details', order_collection=order_collection)
+        if field not in ["quantity", "price"]:
+            # field = "username" #+ str(field)
+            filters = { field : value }
+            collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+            collectionIDs = []
+            for collection in collections:
+                collectionIDs.append(collection.id)
+            # filters = { field : value }
+            order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).filter_by(**filters).all()
+            
+            # order_collection = Collection.query.order_by(desc(collection.title))
+            # order_collection = Order.query.filter_by(**filters)
+        else:
+            collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+            collectionIDs = []
+            for collection in collections:
+                collectionIDs.append(collection.id)
+            # filters = { field : value }
+            filters = "Order." + str(field) + " " + str(value)
+            print(filters)
+            # filters = "Order.quantity desc"  
+            # filters = "Order.quantity acse" 
+            # order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.price.desc()).all() #notworking
+            order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.Is_Order_confirmed.desc()).all() #sahikamhorha
+            order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.Is_Order_rejected.desc()).all() #sahikamhorha
+            order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.quantity.desc()).all() #sahikamhorha
+            # order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.quantity.acse()).all() #notworking
+            print(order_collection)
 
+
+    return render_template('allOrder.html', title='Details', orders=order_collection)
+
+
+
+#orcustomerorder
+@app.route('/dashboard/orders/<field>/<value>/', methods=['GET','POST'])
+def orders(field,value):
+    if request.method == 'GET':
+        if field not in ["quantity", "price"]:
+        # field = "username" #+ str(field)
+            filters = { field : value }
+            collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+            collectionIDs = []
+            for collection in collections:
+                collectionIDs.append(collection.id)
+        # filters = { field : value }
+            orders = Order.query.filter(Order.collection_id.in_(collectionIDs)).filter_by(**filters).all()
+        
+        # order_collection = Collection.query.order_by(desc(collection.title))
+        # order_collection = Order.query.filter_by(**filters)
+        else:
+            collections = Collection.query.filter(Collection.user_id==current_user.id).all()
+            collectionIDs = []
+            for collection in collections:
+                collectionIDs.append(collection.id)
+        # filters = { field : value }
+            filters = "Order." + str(field) + " " + str(value)
+            print(filters)
+        # filters = "Order.quantity desc"  
+            orders = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.quantity.desc()).all()
+            print(orders)
+
+
+    return render_template('allOrder.html', title='Details', orders=orders)
 
 @app.route('/filterTailor/<filter_user>/', methods=['GET','POST'])
 def filter_tailor(filter_user):
