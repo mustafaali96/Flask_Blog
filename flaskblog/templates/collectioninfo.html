@@ -75,23 +75,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <label for="urgent">Urgent (3 Days)</label>
     </p>
     </div>
-     <!--  <form method="GET"> -->
-                    <!-- <input type="radio" name="fav_language" value="Normal"/>
-                    <input  type='radio' name='fav_language' value='{{collection.id}}'> -->
-                    <!-- <button class="btn btn-primary" type="submit" value='normal Order'>
-                        <i class="fas fa-check-circle"></i> 
-                    </button> -->
+ 
                  
-      {% if collection.normal == 1 %}
-                <!--   and collection.Is_Order_normal == 0 and collection.Is_Order_urgent == 0 %} -->
-                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: Deliver in 10 days</p>
+      <!-- {% if collection.normal == 1 %}
+        <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status:</b> Deliver in 10 days</p>
+          {% else %} 
+          <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status:</b> Deliver in 3 days</p> 
+          {% endif %} -->
 
-                    <!-- {% elif collection.normal == 1 %}
-                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>{{ collection.normal }}</p> 
- -->
-                  {% else %} 
-                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Deliver in 3 days</p> 
-                  {% endif %}
+                    
     {% elif current_user.user_type == 2 %}
       <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>

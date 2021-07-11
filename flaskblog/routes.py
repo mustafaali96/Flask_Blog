@@ -477,6 +477,10 @@ def orders(field,value):
             print(filters)
         # filters = "Order.quantity desc"  
             orders = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.quantity.desc()).all()
+            orders = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.Is_Order_rejected.desc()).all() #sahikamhorha
+            order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.Is_Order_confirmed.desc()).all() #sahikamhorha
+
+
             print(orders)
 
 
