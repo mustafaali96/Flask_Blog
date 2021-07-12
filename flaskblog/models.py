@@ -62,7 +62,7 @@ class Collection(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	# tname = db.Column(db.String(20), db.ForeignKey('User.username'),nullable=False )
 
-	price = db.Column(db.String(20), nullable=False )
+	price = db.Column(db.String(20), nullable=False ) #stitchingprice
 	# stitch_price = db.Column(db.String(20), nullable=False )
 	# dress_price = db.Column(db.String(20), nullable=False )
 	title = db.Column(db.String(20), nullable=False )
@@ -82,6 +82,7 @@ class Collection(db.Model):
 	user = db.relationship('User')#, backref=db.backref('collection', lazy=True))
 
 
+
 	def __repr__(self):
 		return f"Collection('{self.price}','{self.description}', '{self.title}')"
 
@@ -94,6 +95,18 @@ class Collection(db.Model):
 	    """Return True if the user is authenticated."""
 	    return self.authenticated
 
+# class Quality(db.Model):
+# 	id = db.Column(db.Integer, primary_key=True)
+# 	dress_price = (db.Column(db.String(20), nullable=False ))#stuffprice
+# 	total_price = (db.Column(db.String(20), nullable=False )) #totalpayable
+
+
+# 	def __repr__(self):
+# 		return f"Quality('{self.dress_price}','{self.total_price}')"
+
+
+# 	def get_id(self):
+# 	    return self.id
 
 
 class Size(db.Model):
@@ -129,8 +142,12 @@ class Order(db.Model):
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	Is_Order_confirmed = db.Column(db.Boolean, default = False)
 	Is_Order_rejected = db.Column(db.Boolean, default = False)
-	normal = db.Column(db.Boolean, default = False)
-	urgent = db.Column(db.Boolean, default = False)
+	normal = db.Column(db.Boolean, default = True)
+	urgent = db.Column(db.Boolean, default = True)
+
+	print("Urgent Data is:",urgent)
+	# quality_id = db.Column(db.Integer, db.ForeignKey('quality.id')) #newadded
+	# quality = db.relationship('Quality')
 
 	order_created_at = db.Column(db.DateTime, default=datetime.now().strftime("%B%d,%Y %I:%M%p"))
 

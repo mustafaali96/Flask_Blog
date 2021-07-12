@@ -28,7 +28,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 {% endblock stylesheets %} -->
 
+
 {% block content %}
+
 
 <div class="container">
   <div class="images">
@@ -53,7 +55,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
           {% endfor %}
         </select>
         <br><br>
+<label  class="form-control-label" for="price">Quality:</label>
 
+<select name="price" id="price">
+  <option value="best">Best</option>
+  <option value="average">Average</option>
+  <option value="normal">Normal</option>
+
+</select>
+<br>
         <lable class="form-control-label" for="customsize">
         Measurements: </lable>
         <select id="customsize">
@@ -88,6 +98,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+      
+<label  class="form-control-label" for="price">Quality:</label>
+
+<select name="price" id="price">
+  <option value="bes">Best</option>
+  <option value="average">Average</option>
+  <option value="normal">Normal</option>
+
+</select>
 
       <div class="name">
         <lable class="form-control-label" for="customsize">
@@ -113,11 +132,21 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <label for="urgent">Urgent (3 Days)</label>
     </p>
     </div>
+
+
+  </div>
     {% else %}
       <!-- <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p> -->
             <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
+<label  class="form-control-label" for="price">Quality:</label>
 
+<select name="price" id="price">
+  <option value="bes">Best</option>
+  <option value="average">Average</option>
+  <option value="normal">Normal</option>
+
+</select>
       <lable class="form-control-label" for="mysize">Size: </lable>
       <select id="mysize" name="mysize">
         {% for collectionsize in sizes %}
@@ -135,6 +164,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <label for="urgent">Urgent (3 Days)</label>
     </p>
     </div>
+
     {% endif %}
         
     <br> 
@@ -182,9 +212,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       &nbsp <br>
 
       <!-- <button type="button" onclick="GetSelectedSize()">Get Sizes</button> -->
-      
-
-      <br>
+       <!-- <div class="dropdown">
+  <button class="dropbtn">Quality</button>
+  <div class="dropdown-content">
+    <a href="#"> Best</a>
+    <a href="#">Average</a>
+    <a href="#">Low</a>
+  </div>
+</div>  -->
       <div class="buttons">
         <button type="submit">Add to Cart</button>
       </div> 
@@ -413,6 +448,3 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 {% endblock content %}
-
-
-

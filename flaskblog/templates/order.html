@@ -100,11 +100,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   {% endif %}
 
                   
-                {% if collection.normal == 0  %}
-                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b>Deliver in 10 days</p>
+                {% if collection.normal == 1  %}
+                <!--   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b>Deliver in 10 days</p> -->
+                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b> Deliver in 10 days</p>
+                  
+
+
         \
                 {% else %} 
-                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b> Deliver in 3 days</p>
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b> Deliver in 311 days</p>
                 {% endif %}
 
 
