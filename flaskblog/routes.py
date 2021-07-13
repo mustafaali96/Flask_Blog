@@ -177,7 +177,7 @@ def add_collection():
                 abort(400) 
             uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
 
-        collection=Collection(user_id=current_user.id, created_at=datetime.now(), updated_at=datetime.now(), title=form.title.data, price=form.price.data, is_embroidery=form.embroidery.data, is_partywear=form.partywear.data,is_dailywear=form.dailywear.data, is_modestwear=form.modestwear.data, fabric=form.fabric.data, product_image=filename, description=form.description.data, category=form.category.data)
+        collection=Collection(user_id=current_user.id, created_at=datetime.now(), updated_at=datetime.now(), title=form.title.data, price=form.price.data, is_embroidery=form.embroidery.data, is_partywear=form.partywear.data,is_dailywear=form.dailywear.data, is_modestwear=form.modestwear.data, fabric=form.fabric.data, product_image=filename, description=form.description.data, category=form.category.data, normal_quality_price=form.normal.data, good_quality_price=form.good.data, best_quality_price=form.best.data)
         print(collection)
         db.session.add(collection)
         db.session.commit()

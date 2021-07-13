@@ -53,16 +53,19 @@ class UpdateCustomerAccountForm(FlaskForm):
 	submit = SubmitField('Update')
 
 class AddCollectionForm(FlaskForm):
-	price = StringField('Product Price', validators=[DataRequired(), Length(min=2, max=20)])
+	title = StringField('Product Name', validators=[DataRequired(), Length(min=2, max=20)])
+	description = StringField('Description', validators=[DataRequired(), Length(min=2, max=20)])
 	product_image = FileField('Product Image')
 	fabric = StringField('Fabric', validators=[DataRequired(), Length(min=2, max=20)])
-	category = SelectField('Collection Type', choices=[('0', 'Abaya'), ('1', 'Hijab')])
-	description = StringField('Description', validators=[DataRequired(), Length(min=2, max=20)])
-	title = StringField('Product Name', validators=[DataRequired(), Length(min=2, max=20)])
+	normal = StringField('Normal Quality Price', validators=[DataRequired(), Length(min=2, max=20)])
+	good = StringField('Good Quality Price', validators=[DataRequired(), Length(min=2, max=20)])
+	best = StringField('Best Quality Price', validators=[DataRequired(), Length(min=2, max=20)])
+	price = StringField('Stitching Price', validators=[DataRequired(), Length(min=2, max=20)])
 	embroidery = BooleanField('Embroidery')
 	partywear = BooleanField('Party Wear')
 	dailywear = BooleanField('Daily Wear')
 	modestwear = BooleanField('Modest Wear')
+	category = SelectField('Collection Type', choices=[('0', 'Abaya'), ('1', 'Hijab')])
 	submit = SubmitField('Add')	
 
 class OrderForm(FlaskForm):
