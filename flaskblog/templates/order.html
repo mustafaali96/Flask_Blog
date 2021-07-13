@@ -42,17 +42,18 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b> {{ collection.quantity }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b><p id="{{ collection.id }}"></p></p>
 
-
                 <!-- <input type="text" id="txt1" name="text1" value="{{ collection.collection.price }}"> -->
                 <!-- <input type="text" id="txt2" name="text2" value="{{ collection.quantity }}"> -->  
                 <button onclick="myFunction('{{ collection.collection.price }}', '{{ collection.quantity }}', '{{ collection.id }}')">Calculate Total Amount</button>
-                
-
-                
-
-
 
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order date: </b> {{ collection.order_created_at.date() }}</p>
+                
+                {% if collection.normal == 1  %}
+                <!--   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b>Deliver in 10 days</p> -->
+                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Time: </b> Deliver in 10 days</p>
+                {% else %} 
+                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Time: </b> Deliver in 3 days</p>
+                {% endif %}
                 
                 {% if current_user.user_type == 1 %}
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
@@ -84,7 +85,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   </form>
                 {% else %}
                   {% if collection.Is_Order_confirmed == 0 and collection.Is_Order_rejected == 0 %}
-                <!--   and collection.Is_Order_normal == 0 and collection.Is_Order_urgent == 0 %} -->
+                    <!--   and collection.Is_Order_normal == 0 and collection.Is_Order_urgent == 0 %} -->
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Pending</p>
                     <form method="post">
                       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -94,22 +95,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                       </button>
                     </form>
                   {% elif collection.Is_Order_rejected == 1 %}
-                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Rejected</p> 
+                    <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Rejected</p> 
                   {% else %} 
                     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Confirmed</p> 
                   {% endif %}
-
-                  
-                {% if collection.normal == 1  %}
-                <!--   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b>Deliver in 10 days</p> -->
-                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b> Deliver in 10 days</p>
-                  
-
-                {% else %} 
-                  <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Delivery Status: </b> Deliver in 311 days</p>
-                {% endif %}
-
-
 
                 {% endif %}
              </div>
