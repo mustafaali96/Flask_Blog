@@ -393,6 +393,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   {% elif current_user.user_type == 2 %}
     <form method="post"> 
       {{ form.hidden_tag() }}
+      <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
+        <div> 
+          <p>  <input type="radio" id="normal" name="delivery" value="1" required>
+          <label for="normal">Normal (10 Days)</label>
+          &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp 
+          <input type="radio" id="urgent" name="delivery" value="0">
+          <label for="urgent">Urgent (3 Days)</label>
+          </p>
+        </div>
       <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
     </form>
   

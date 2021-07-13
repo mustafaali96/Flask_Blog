@@ -286,7 +286,6 @@ def collection_detail(collection_id):
                 quantity = request.form["quantity"]
                 try:
                     delivery = request.form["delivery"]
-                    print(delivery)
                     if delivery == '1':
                         normal = 1
                         urgent = 0
@@ -304,11 +303,21 @@ def collection_detail(collection_id):
                 return redirect(url_for('collections'))
              
             else:
-               
+                try:
+                    delivery = request.form["delivery"]
+                    if delivery == '1':
+                        normal = 1
+                        urgent = 0
+                    else:
+                        normal = 0
+                        urgent = 1
+                except:
+                    normal = 1
+                    urgent = 0
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
-                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest)
+                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent)
                         db.session.add(order)
                         db.session.commit()
                     flash('Your bulk order has been placed!', 'success')
