@@ -63,8 +63,6 @@ class Collection(db.Model):
 	# tname = db.Column(db.String(20), db.ForeignKey('User.username'),nullable=False )
 
 	price = db.Column(db.String(20), nullable=False ) #stitchingprice
-	# stitch_price = db.Column(db.String(20), nullable=False )
-	# dress_price = db.Column(db.String(20), nullable=False )
 	title = db.Column(db.String(20), nullable=False )
 	is_embroidery = db.Column(db.Integer, default=0)   
 	is_partywear = db.Column(db.Integer, default=0)
@@ -80,6 +78,9 @@ class Collection(db.Model):
 	description = db.Column(db.String(50), nullable=False)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	user = db.relationship('User')#, backref=db.backref('collection', lazy=True))
+	normal_quality_price = db.Column(db.Integer, default = 0)
+	good_quality_price = db.Column(db.Integer, default = 0)
+	best_quality_price = db.Column(db.Integer, default = 0)
 
 
 
@@ -144,12 +145,8 @@ class Order(db.Model):
 	Is_Order_rejected = db.Column(db.Boolean, default = False)
 	normal = db.Column(db.Boolean, default = False)
 	urgent = db.Column(db.Boolean, default = False)
-
-	print("Urgent Data is:",urgent)
-	# quality_id = db.Column(db.Integer, db.ForeignKey('quality.id')) #newadded
-	# quality = db.relationship('Quality')
-
 	order_created_at = db.Column(db.DateTime, default=datetime.now().strftime("%B%d,%Y %I:%M%p"))
+	total_amount = db.Column(db.Float, nullable=True, default = 0)
 
 	def __repr__(self):
 		return f"Order('{self.customer_id}','{self.collection_id}')"
