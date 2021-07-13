@@ -284,6 +284,8 @@ def collection_detail(collection_id):
                 Sleeves = request.form["sleeves"]
                 Chest = request.form["chest"]
                 quantity = request.form["quantity"]
+                quality = request.form["quality"]
+                total_amount = (int(collection.price) + int(quality)) * int(quantity)
                 try:
                     delivery = request.form["delivery"]
                     if delivery == '1':
@@ -296,7 +298,7 @@ def collection_detail(collection_id):
                     normal = 1
                     urgent = 0
             
-                order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity, normal=normal, urgent=urgent)
+                order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity, normal=normal, urgent=urgent, total_amount=total_amount)
                 db.session.add(order)
                 db.session.commit()
                 flash('Your order has been placed!', 'success')
@@ -314,10 +316,13 @@ def collection_detail(collection_id):
                 except:
                     normal = 1
                     urgent = 0
+
+                quality = request.form["quality"]
+                total_amount = (int(collection.price) + int(quality))
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
-                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent)
+                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent, total_amount=total_amount)
                         db.session.add(order)
                         db.session.commit()
                     flash('Your bulk order has been placed!', 'success')

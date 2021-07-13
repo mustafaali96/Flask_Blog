@@ -55,64 +55,32 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
           {% endfor %}
         </select>
         <br><br>
-<label  class="form-control-label" for="price">Quality:</label>
 
-<select name="price" id="price">
-  <option value="best">Best</option>
-  <option value="average">Average</option>
-  <option value="normal">Normal</option>
-
-</select>
-<br>
-        <lable class="form-control-label" for="customsize">
-        Measurements: </lable>
+        <lable class="form-control-label" for="customsize">Measurements: </lable>
         <select id="customsize">
+          <option hidden disabled selected value> --- </option>
           {% for customsize in my_customsize %}
             <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
-
           {% endfor %}
-
-             
-        </select>
-<br>
-<br>
+        </select><br><br><br>
                     
     {% elif current_user.user_type == 2 %}
-      <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
-      
-<label  class="form-control-label" for="price">Quality:</label>
-
-<select name="price" id="price">
-  <option value="bes">Best</option>
-  <option value="average">Average</option>
-  <option value="normal">Normal</option>
-
-</select>
-
       <div class="name">
-        <lable class="form-control-label" for="customsize">
-        Measurements: </lable>
+        <lable class="form-control-label" for="customsize">Measurements: </lable>
         <select id="customsize"  class="dropdown-check-list" tabindex="100">
+          <option hidden disabled selected value> --- </option>
           {% for customsize in my_customsize %}
             <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
           {% endfor %}
         </select>
            <br><br>
-  </div>
+        </div>
     {% else %}
       <!-- <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">Created At: {{ collection.created_at.date() }}</p> -->
             <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
-<label  class="form-control-label" for="price">Quality:</label>
-
-<select name="price" id="price">
-  <option value="bes">Best</option>
-  <option value="average">Average</option>
-  <option value="normal">Normal</option>
-
-</select>
       <lable class="form-control-label" for="mysize">Size: </lable>
       <select id="mysize" name="mysize">
         {% for collectionsize in sizes %}
@@ -129,6 +97,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   {% if current_user.user_type == 0 %}
     <form method="post">
       {{ form.hidden_tag() }}
+      <label  class="form-control-label" for="quality">Quality:</label>
+        <select name="quality" id="quality">
+          <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
+          <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
+          <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
+        </select>
       <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
         <div> 
           <p>  <input type="radio" id="normal" name="delivery" value="1" required>
@@ -298,6 +272,26 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     </div>
     {% block javascripts %}
       <script>
+        window.onload = function() {
+        var e = document.getElementById("mysize");
+        var size_label = e.options[e.selectedIndex].text;
+        var size_values = e.options[e.selectedIndex].value.split(",");
+        for (var i = 0; i < size_values.length; i++)
+          if (size_values[i] == 'None')
+            size_values[i] = 0;
+        var length = size_values[0];
+        var width = size_values[1];
+        var shoulder = size_values[2];
+        var armhole = size_values[3];
+        var sleeves = size_values[4];
+        var chest = size_values[5];
+        document.getElementById("flength").setAttribute('value',length);
+        document.getElementById("fwidth").setAttribute('value',width);
+        document.getElementById("fshoulder").setAttribute('value',shoulder);
+        document.getElementById("farmhole").setAttribute('value',armhole);
+        document.getElementById("fsleeves").setAttribute('value',sleeves);
+        document.getElementById("fchest").setAttribute('value',chest);
+        };
 
         $("#mysize").change(function(){
 		      var e = document.getElementById("mysize");
@@ -393,6 +387,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   {% elif current_user.user_type == 2 %}
     <form method="post"> 
       {{ form.hidden_tag() }}
+      <label  class="form-control-label" for="quality">Quality:</label>
+        <select name="quality" id="quality">
+          <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
+          <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
+          <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
+        </select>
       <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
         <div> 
           <p>  <input type="radio" id="normal" name="delivery" value="1" required>
@@ -410,6 +410,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   {% else %} 
   <form method="post"> 
     {{ form.hidden_tag() }}
+    <label  class="form-control-label" for="quality">Quality:</label>
+        <select name="quality" id="quality">
+          <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
+          <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
+          <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
+        </select>
     <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
   </form>
 
