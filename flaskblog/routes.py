@@ -284,8 +284,20 @@ def collection_detail(collection_id):
                 Sleeves = request.form["sleeves"]
                 Chest = request.form["chest"]
                 quantity = request.form["quantity"]
+                try:
+                    delivery = request.form["delivery"]
+                    print(delivery)
+                    if delivery == '1':
+                        normal = 1
+                        urgent = 0
+                    else:
+                        normal = 0
+                        urgent = 1
+                except:
+                    normal = 1
+                    urgent = 0
             
-                order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity)
+                order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity, normal=normal, urgent=urgent)
                 db.session.add(order)
                 db.session.commit()
                 flash('Your order has been placed!', 'success')

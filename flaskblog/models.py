@@ -142,8 +142,8 @@ class Order(db.Model):
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	Is_Order_confirmed = db.Column(db.Boolean, default = False)
 	Is_Order_rejected = db.Column(db.Boolean, default = False)
-	normal = db.Column(db.Boolean, default = True)
-	urgent = db.Column(db.Boolean, default = True)
+	normal = db.Column(db.Boolean, default = False)
+	urgent = db.Column(db.Boolean, default = False)
 
 	print("Urgent Data is:",urgent)
 	# quality_id = db.Column(db.Integer, db.ForeignKey('quality.id')) #newadded
