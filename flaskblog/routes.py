@@ -270,6 +270,13 @@ def collection_detail(collection_id):
         collection = Collection.query.filter(Collection.id==collection_id)[0]
         sizes = Size.query.filter(Size.category==collection.category).all()
         my_customsize = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
+        
+        stitching_off = 0
+        if current_user.user_type == 0:
+            customer_total_orders = Order.query.filter(Order.customer_id==current_user.id).all()
+            if len(customer_total_orders) % 10 == 0:
+                stitching_off = 1
+
 
     if request.method == 'POST':
         collection = Collection.query.filter(Collection.id==collection_id)[0]
@@ -285,7 +292,13 @@ def collection_detail(collection_id):
                 Chest = request.form["chest"]
                 quantity = request.form["quantity"]
                 quality = request.form["quality"]
-                total_amount = (int(collection.price) + int(quality)) * int(quantity)
+
+                stitching_price = int(collection.price)
+                if current_user.user_type == 0:
+                    customer_total_orders = Order.query.filter(Order.customer_id==current_user.id).all()
+                    if len(customer_total_orders) % 10 == 0:
+                        stitching_price = 0
+                total_amount = (stitching_price + int(quality)) * int(quantity)
                 try:
                     delivery = request.form["delivery"]
                     if delivery == '1':
@@ -337,7 +350,7 @@ def collection_detail(collection_id):
             flash('Please login yourself first!', 'danger')
             return redirect(url_for('login'))
 
-    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes, my_customsize=my_customsize)
+    return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes, my_customsize=my_customsize, stitching_off=stitching_off)
 
 
 @app.route('/<collection_id>/', methods=['GET','POST'])

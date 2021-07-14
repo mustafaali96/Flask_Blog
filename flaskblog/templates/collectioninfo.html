@@ -42,7 +42,11 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <div class="product">
     <!-- <p>Women's Running Shoe</p> -->
     <h1>{{ collection.title }}</h1>
-    <h2>Rs {{ collection.price }}</h2>
+    {% if stitching_off == 0 %}
+      <h2>Stitching Price: {{ collection.price }}</h2>
+    {% else %}
+    <h2>Stitching Price: 0 (10th Order Discount)</h2>
+    {% endif %}
     {% if current_user.user_type == 0 %}
       <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>

@@ -38,7 +38,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <img src="{{ url_for('static', filename='abayacollection/' + collection.collection.product_image) }}" width="250" height="250">
                 </div>
                 <h2 class="h3 m-0" style="font-family:sans-serif;font-weight: 600;"><a style="color:black"; href="{{ url_for('collection_detail', collection_id=collection.id) }}">{{ collection.collection.title }}</a></h2>
-                <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Stitching Price: </b> {{ collection.collection.price }}</p>
+                <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Stitching Price: </b> {{ collection.collection.price }}</p> -->
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b> {{ collection.quantity }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b>{{ collection.total_amount }}</p>
 
