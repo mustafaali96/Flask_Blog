@@ -170,6 +170,7 @@ class CustomSize(db.Model):
 	Armhole = db.Column(db.Float, nullable=True, default = 0)
 	Sleeves = db.Column(db.Float, nullable=True, default = 0)
 	Chest = db.Column(db.Float, nullable=True, default = 0)
+	quantity = db.Column(db.Integer, nullable=False, default=1) 
 	
 	def __repr__(self):
 		return f"Size('{self.user.username}', '{self.category}', '{self.relation}')"

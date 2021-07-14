@@ -1,4 +1,4 @@
-{% extends "layout.html"%}
+<!-- {% extends "layout.html"%} -->
 {% block style %}
 <link rel="stylesheet"
 href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -42,6 +42,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Total Amount: </b>{{ collection.total_amount }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order date: </b> {{ collection.order_created_at.date() }}</p>
                 <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Customer: </b> {{ collection.user.username }}</p>
+              <!--   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Relation: </b> {{ collection.user }}</p> -->
                 {% if collection.Is_Order_confirmed == 0 and collection.Is_Order_rejected == 0 %}
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Order Status: </b>Pending</p>
                 {% elif collection.Is_Order_rejected == 1 %}

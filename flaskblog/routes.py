@@ -335,7 +335,7 @@ def collection_detail(collection_id):
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
-                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent, total_amount=total_amount)
+                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, quantity=customsize.quantity, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent, total_amount=total_amount)
                         db.session.add(order)
                         db.session.commit()
                     flash('Your bulk order has been placed!', 'success')
@@ -423,6 +423,8 @@ def EditCustomSize(customsize_id):
         form.Armhole.data = customsize.Armhole
         form.Sleeves.data = customsize.Sleeves
         form.Chest.data = customsize.Chest
+        form.quantity.data = customsize.quantity
+
 
     if request.method == 'POST':
         if current_user.is_authenticated:
@@ -434,7 +436,8 @@ def EditCustomSize(customsize_id):
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
-            CustomSize.query.filter_by(id=int(customsize_id)).update(dict(name=name, relation=relation, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest))
+            quantity = request.form["quantity"]
+            CustomSize.query.filter_by(id=int(customsize_id)).update(dict(name=name, relation=relation, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity))
             db.session.commit()
             flash('Your size has been updated!', 'success')
             return redirect(url_for('CustomerCustomSize'))
