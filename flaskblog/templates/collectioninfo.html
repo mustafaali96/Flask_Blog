@@ -106,7 +106,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
           <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
           <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
           <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
-        </select>
+        </select><br> 
       <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
         <div> 
           <p>  <input type="radio" id="normal" name="delivery" value="1" required>
@@ -392,20 +392,28 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <form method="post"> 
       {{ form.hidden_tag() }}
       <label  class="form-control-label" for="quality">Quality:</label>
-        <select name="quality" id="quality">
-          <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
-          <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
-          <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
-        </select>
+      <select name="quality" id="quality">
+        <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
+        <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
+        <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
+      </select><br> 
       <lable class="form-control-label" for="order">Delivery Days: &nbsp &nbsp</lable>
-        <div> 
-          <p>  <input type="radio" id="normal" name="delivery" value="1" required>
+      <div> 
+        <p> 
+          <input type="radio" id="normal" name="delivery" value="1" required>
           <label for="normal">Normal (10 Days)</label>
           &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp 
           <input type="radio" id="urgent" name="delivery" value="0">
           <label for="urgent">Urgent (3 Days)</label>
-          </p>
-        </div>
+        </p>
+      </div>
+      <br>
+      <p> 
+        <lable for="pa-size">Quantity</lable>
+        <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="decrement()">-</button>
+        <input type='number' style='width: 10%; text-align: center; border-radius:10%;' name="quantity" id="fquantity" value="1" min="1" required>
+        <button type="button" style='padding: 1px 10px; display:inline-block; border-radius:50%; border: none; color:#000000; font-size: 16px; margin: 2px 1px; text-align: center; text-decoration: none; display: inline-block;' onclick="increment()">+</button>
+      </p> <br> 
       <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
     </form>
   
@@ -419,7 +427,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
           <option value="{{ collection.best_quality_price }}">Best ({{ collection.best_quality_price }})</option>
           <option value="{{ collection.good_quality_price }}">Average ({{ collection.good_quality_price }})</option>
           <option value="{{ collection.normal_quality_price }}">Normal ({{ collection.normal_quality_price }})</option>
-        </select>
+        </select><br> 
     <button class="btn btn-primary" type="submit" value="{{collection.id}}">Add to Cart</button>
   </form>
 

@@ -331,11 +331,13 @@ def collection_detail(collection_id):
                     urgent = 0
 
                 quality = request.form["quality"]
-                total_amount = (int(collection.price) + int(quality))
+                quantity = request.form["quantity"]
+                total_amount = (int(collection.price) + int(quality)) * int(quantity)
+                total_amount = total_amount - (total_amount/100 * 10) #After 10 percent discount
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
-                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, quantity=customsize.quantity, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent, total_amount=total_amount)
+                        order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, quantity=quantity, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent, total_amount=total_amount)
                         db.session.add(order)
                         db.session.commit()
                     flash('Your bulk order has been placed!', 'success')
