@@ -39,13 +39,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Armhole: </b>{{ customsize.Armhole }}</p>
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Sleeves: </b>{{ customsize.Sleeves }}</p>
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Chest: </b>{{ customsize.Chest }}</p>
+              <!--     <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b>{{ customsize.quantity }}</p> -->
                 {% else %} 
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Hijab</b></p>
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Length: </b>{{ customsize.Length }}</p>
                   <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Width: </b>{{ customsize.width }}</p>
+                  <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b>{{ customsize.quantity }}</p> -->
                 {% endif %}
                 
-                <a class ="btn btn-primary" style="width: 99%;" type='hidden' href="{{ url_for('EditCustomSize', customsize_id=customsize.id) }}"><i class="feather feather-edit"></i> Edit</a>
+               <!--  <a class ="btn btn-primary" style="width: 99%;" type='hidden' href="{{ url_for('EditCustomSize', customsize_id=customsize.id) }}"><i class="feather feather-edit"></i> Edit</a>
                 
                 <form method="post">
                   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -53,7 +55,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <button class="btn btn-danger" type="submit" value='Delete'>
                       <i class="fas fa-trash-alt"></i> 
                   </button>
-                </form>
+                </form> -->
              </div>
           <!-- </div> -->
        </div>

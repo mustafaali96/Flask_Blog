@@ -399,6 +399,7 @@ def AddCustomSize():
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
+            # quantity = request.form["quantity"]
             customSize = CustomSize(customer_id=current_user.id, name=name, relation=relation, category=category, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest)
             db.session.add(customSize)
             db.session.commit()
@@ -423,7 +424,7 @@ def EditCustomSize(customsize_id):
         form.Armhole.data = customsize.Armhole
         form.Sleeves.data = customsize.Sleeves
         form.Chest.data = customsize.Chest
-        form.quantity.data = customsize.quantity
+        # form.quantity.data = customsize.quantity
 
 
     if request.method == 'POST':
@@ -436,8 +437,8 @@ def EditCustomSize(customsize_id):
             Armhole = request.form["Armhole"]
             Sleeves = request.form["Sleeves"]
             Chest = request.form["Chest"]
-            quantity = request.form["quantity"]
-            CustomSize.query.filter_by(id=int(customsize_id)).update(dict(name=name, relation=relation, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity))
+            # quantity = request.form["quantity"]
+            CustomSize.query.filter_by(id=int(customsize_id)).update(dict(name=name, relation=relation, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest))
             db.session.commit()
             flash('Your size has been updated!', 'success')
             return redirect(url_for('CustomerCustomSize'))

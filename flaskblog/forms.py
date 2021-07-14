@@ -87,7 +87,7 @@ class CustomSizeForm(FlaskForm):
 	Armhole = StringField('Armhole')
 	Sleeves = StringField('Sleeves')
 	Chest = StringField('Chest')
-	quantity = StringField('quantity')
+	# quantity = StringField('quantity')
 # class UpdateCustomerAccountForm(FlaskForm):
 # 	firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
 # 	lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
