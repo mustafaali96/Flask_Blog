@@ -143,6 +143,7 @@ class Order(db.Model):
 	Chest = db.Column(db.Float, nullable=True, default = 0)
 	Is_Order_confirmed = db.Column(db.Boolean, default = False)
 	Is_Order_rejected = db.Column(db.Boolean, default = False)
+	# order_ready = db.Column(db.Boolean, default = False)
 	normal = db.Column(db.Boolean, default = False)
 	urgent = db.Column(db.Boolean, default = False)
 	order_created_at = db.Column(db.DateTime, default=datetime.now().strftime("%B%d,%Y %I:%M%p"))
@@ -178,3 +179,17 @@ class CustomSize(db.Model):
 
 	def get_id(self):
 	    return self.id
+
+# class OrderCompleted(db.Model):
+# 	id = db.Column(db.Integer, primary_key=True)
+# 	order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+# 	order = db.relationship('Order')
+# 	customer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+# 	user = db.relationship('User')
+
+
+# 	def __repr__(self):
+# 		return f"OrderCompleted('{self.order.order_id}')"
+
+# 	def get_id(self):
+# 	    return self.id

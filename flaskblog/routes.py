@@ -299,48 +299,51 @@ def collection_detail(collection_id):
                     if len(customer_total_orders) % 10 == 0:
                         stitching_price = 0
                 total_amount = (stitching_price + int(quality)) * int(quantity)
-                try:
-                    delivery = request.form["delivery"]
-                    if delivery == '1':
-                        normal = 1
-                        urgent = 0
-                    else:
-                        normal = 0
-                        urgent = 1
-                except:
-                    normal = 1
-                    urgent = 0
-            
+                # try:
+                #     delivery = request.form["delivery"]
+                #     if delivery == '1':
+                #         normal = 1
+                #         urgent = 0
+                #     else:
+                #         normal = 0
+                #         urgent = 1
+                # except:
+                #     normal = 1
+                #     urgent = 0
+                quality = request.form["quality"]
+                quantity = request.form["quantity"]
+                total_amount = (int(collection.price) + int(quality)) * int(quantity)
+                # total_amount = total_amount - (total_amount/100 * 10)
                 order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=Length, width=width, Shoulder=Shoulder, Armhole=Armhole, Sleeves=Sleeves, Chest=Chest, quantity=quantity, normal=normal, urgent=urgent, total_amount=total_amount)
                 db.session.add(order)
                 db.session.commit()
                 flash('Your order has been placed!', 'success')
                 return redirect(url_for('collections'))
              
-            else:
-                try:
-                    delivery = request.form["delivery"]
-                    if delivery == '1':
-                        normal = 1
-                        urgent = 0
-                    else:
-                        normal = 0
-                        urgent = 1
-                except:
-                    normal = 1
-                    urgent = 0
+            # else:
+            #     try:
+            #         delivery = request.form["delivery"]
+            #         if delivery == '1':
+            #             normal = 1
+            #             urgent = 0
+            #         else:
+            #             normal = 0
+            #             urgent = 1
+            #     except:
+            #         normal = 1
+            #         urgent = 0
 
                 quality = request.form["quality"]
                 quantity = request.form["quantity"]
                 total_amount = (int(collection.price) + int(quality)) * int(quantity)
-                total_amount = total_amount - (total_amount/100 * 10) #After 10 percent discount
+                # total_amount = total_amount - (total_amount/100 * 10) #After 10 percent discount
                 customsizes = CustomSize.query.filter(CustomSize.customer_id==current_user.id, CustomSize.category==collection.category).all()
                 if len(customsizes) >= 1:
                     for customsize in customsizes:
                         order=Order(customer_id=current_user.id, order_created_at=datetime.now(), collection_id=collection_id, Length=customsize.Length, width=customsize.width, quantity=quantity, Shoulder=customsize.Shoulder, Armhole=customsize.Armhole, Sleeves=customsize.Sleeves, Chest=customsize.Chest, normal=normal, urgent=urgent, total_amount=total_amount)
                         db.session.add(order)
                         db.session.commit()
-                    flash('Your bulk order has been placed!', 'success')
+                    flash('Your order has been placed!', 'success')
                     return redirect(url_for('collections'))
                 else:
                     if collection.category == 0:
@@ -368,6 +371,15 @@ def guest_collection_detail(collection_id):
 
     return render_template('collectioninfo.html', title='Details', collection=collection, form=form, sizes=sizes)
  
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'GET':
+        c.executemany('''select * from CustomSize where name = %s''', request.form['search'])
+        for r in c.fetchall():
+            # print r[0],r[1],r[2]
+            return redirect(url_for('search'))
+    return render_template('collectioninfo.html')
+
 
 @app.route("/size/", methods=['GET','POST'])
 def CustomerCustomSize():
@@ -484,13 +496,13 @@ def order_collection(field,value):
             print(filters)
             # filters = "Order.quantity desc"  
             # filters = "Order.quantity acse" 
-            # order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.price.desc()).all() #notworking
+            order_collection = Order.query.order_by(Order.total_amount.desc()).all() #notworking
             order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.Is_Order_confirmed.desc()).all() #sahikamhorha
             order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.Is_Order_rejected.desc()).all() #sahikamhorha
             order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.quantity.desc()).all() #sahikamhorha
             # order_collection = Order.query.filter(Order.collection_id.in_(collectionIDs)).order_by(Order.quantity.acse()).all() #notworking
             print(order_collection)
-
+            # select * from CustomSize where name="Shazia"
 
     return render_template('allOrder.html', title='Details', orders=order_collection)
 
@@ -536,6 +548,17 @@ def filter_tailor(filter_user):
     if request.method == 'GET':
         filter_collection = Collection.query.filter(Collection.user_id==filter_user).all()
     return render_template('filtercollection.html', title='Details', filter_collection=filter_collection)
+
+# filtername
+# @app.route('/size/filterCusname/<filter_name>/', methods=['GET','POST'])
+# def filter_Cusname(filter_name):
+#     if request.method == 'GET':
+#         filter_Cusname = CustomSize.query.filter(CustomSize.id==CustomSize.name).all()
+#     return render_template('filtercollection.html', title='Details', filter_Cusname=filter_Cusname)
+
+
+
+
 
 @app.route('/about/')
 def about():
@@ -756,11 +779,43 @@ def contact_us():
 #           return redirect(url_for('login'))
 #   return render_template('register.html', title='SignUp', form=form)
 
+# @app.route('/rate_movie',methods=['GET','POST'])
+# def rate_movie():
+
+#     # Create cursor
+# if request.method == 'POST':
+
+#     data = request.get_json(force=True)
+#     rating = data['rating']
+#     id = data['id'] 
+#     cursor = cnx.cursor()
+#         # Execute
+#     #cursor.execute("UPDATE favourites SET rating=5  WHERE id =49") ## Works 
+#     cursor.execute("UPDATE favourites SET rating=%s  WHERE id =%s",(rating,id))
+#     #("INSERT INTO favourites(rating)VALUES(%s) WHERE id =%s" ,(rating,id))
+#         # Commit to DB
+#     cnx.commit()
+
+#         #Close connection
+#     cursor.close()
+
+#     flash('Movie Rated', 'success')
+# return redirect(url_for('my_f'))
 
 
 
 
-
-
-
-
+#     {% for result in results %}
+# <script type="text/javascript">
+#     function updateStars(id) {
+#        var rating = document.getElementById("stars_" + id).value;
+#        $.ajax({
+#            url : '/rate_movie',
+#            headers: {"Content-Type": "application/json"},
+#            type : 'POST',
+#            dataType: 'json',
+#            data : JSON.stringify{'id': 'id', 'rating': rating}
+#            });
+# };
+# </script>
+# {% endfor %}

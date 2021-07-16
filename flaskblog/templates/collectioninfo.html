@@ -47,7 +47,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% else %}
     <h2>Stitching Price: 0 (10th Order Discount)</h2>
     {% endif %}
-    {% if current_user.user_type == 0 %}
+    {% if current_user.user_type == 0  %}
       <br>
       <div class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"width="250" height="250"><b>Tailor: </b> {{ collection.user.firstname }}</div><br>
       <p class="desc" style="font-size: 1em; color: $rose;letter-spacing: 1px">{{ collection.description }}</p>
@@ -74,10 +74,38 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
       <div class="name">
         <lable class="form-control-label" for="customsize">Measurements: </lable>
         <select id="customsize"  class="dropdown-check-list" tabindex="100">
-          <option hidden disabled selected value> --- </option>
+
+
           {% for customsize in my_customsize %}
             <option value="{{ customsize.Length }},{{ customsize.width }},{{ customsize.Shoulder }},{{ customsize.Armhole }},{{ customsize.Sleeves }},{{ customsize.Chest }}">{{ customsize.name }} ({{ customsize.relation }})</option>
           {% endfor %}
+   <!--         <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn"</button> -->
+    <!-- <input type="text" placeholder="Search.." id="customsize" onkeyup='search()'> -->
+   
+  </div>
+</div> 
+<!--           <option hidden disabled selected value> 
+ <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <a href="#about">Search</a>
+      </div> -->
+      <!-- <div class="product">
+  <form action="" method=post>
+
+    <input type=text name=search value="{{ request.form.search}}"></br>
+    <div class="product"><input type=submit value="Search"></div>
+</form>
+</div> -->
+<!-- {% for message in get_flashed_messages() %}
+<div class=product>
+    {{ message }}
+</div> 
+{% endfor %}      -->
+
+          
         </select>
            <br><br>
         </div>
@@ -432,7 +460,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   </form>
 
   {% endif %}
-<!--  <footer>
+ <!-- <footer>
     <br><br>
     <p>made by <a href="{{ url_for('filter_tailor', filter_user=collection.user.id) }}"> {{ collection.user.firstname  }}</a> ♡
   </footer> -->

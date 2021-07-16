@@ -24,7 +24,27 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% block content %}
 
 <div class="page-body">
-  <a class="btn btn-pill btn-warning" type="button" href="{{ url_for('AddCustomSize') }}" role="button" style="margin-top:20px; position: absolute; right: 40px;">+ Add Size</a>
+  
+  
+  <header class="col-md-12" id="home">
+    <div class="col-md-12">
+      <!-- //nav -->
+                    <div id = "search" class="search-form ml-auto">
+                        <div class="form-w3layouts-grid">
+                            <form action="#" method="post" class="newsletter">
+                                <input class="search" type="search" placeholder="Search here..." required="">
+                                <button class="form-control btn" value=""><span class="fa fa-search"></span></button>
+
+                            </form>
+                        </div>
+                    <!-- </div>
+                    <div class="clearfix"></div>
+                </div> -->
+          
+</div>
+</header>
+
+<a class="btn btn-pill btn-warning" type="button" href="{{ url_for('AddCustomSize') }}" role="button" style="margin-top:20px; position: absolute; right: 40px;">+ Add Size</a>
   <div class="row" style="padding-top: 5rem">
     {% for customsize in customsizes %}
       <div class="col-md-4">
@@ -47,7 +67,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <!-- <p class="p m-0" style="color:rgb(189, 189, 189);font-size: 15px;font-family:sans-serif;"><b>Quantity: </b>{{ customsize.quantity }}</p> -->
                 {% endif %}
                 
-               <!--  <a class ="btn btn-primary" style="width: 99%;" type='hidden' href="{{ url_for('EditCustomSize', customsize_id=customsize.id) }}"><i class="feather feather-edit"></i> Edit</a>
+                <a class ="btn btn-primary" style="width: 99%;" type='hidden' href="{{ url_for('EditCustomSize', customsize_id=customsize.id) }}"><i class="feather feather-edit"></i> Edit</a>
                 
                 <form method="post">
                   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -55,8 +75,11 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
                   <button class="btn btn-danger" type="submit" value='Delete'>
                       <i class="fas fa-trash-alt"></i> 
                   </button>
-                </form> -->
+                </form>
+
+
              </div>
+
           <!-- </div> -->
        </div>
      {% endfor %}
